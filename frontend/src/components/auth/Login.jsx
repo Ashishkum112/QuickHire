@@ -4,7 +4,13 @@ import { Input } from "@/components/ui/input";
 import Navbar from "../shared/Navbar";
 import { Button } from "@/components/ui/button"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import axios from "axios";
+import { USER_API_END_POINT } from "../../utils/constants";
+import { setLoading } from "../../redux/authSlice";
+import { useSelector,useDispatch } from "react-redux";
+import { Loader2 } from "lucide-react";
 
 
 const Login = () => {
@@ -13,6 +19,9 @@ const Login = () => {
     password:"",
     role:"",
   });
+  const {loading } = useSelector(store => store.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const changeEventHandler = (e) =>{
     setInput({...input,[e.target.name]:e.target.value});
@@ -24,9 +33,29 @@ const Login = () => {
 
   const submitHandler = async(e) =>{
     e.preventDefault();
-    console.log(input);
+    try {
+      dispatch(setLoading(true));
+        const res = await axios.post(`${USER_API_END_POINT}/login`, input , {
+            headers:{
+                "Content-Type":"application/json"
+            },
+            withCredentials:true
+        });
+        if(res.data.success){
+            navigate('/')
+            toast.success(res.data.message)
+        }
+    } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message);
+    }
+    finally{
+      dispatch(setLoading(false))
+    }
     
   }
+
+
 
   return (
     <div>
@@ -84,7 +113,10 @@ const Login = () => {
               </div>
             </RadioGroup> 
           </div>
+          {
+            loading ? <Button className='w-full my-4'><Loader2 className="mr-2 h-4 w-4 animate-spin"/> </Button> : 
         <Button type='submit' className='w-full my-4'>Login</Button>
+          }
         <span className="text-sm">Don't have an account ? <Link to='/signup' className='text-blue-600'>Sign up</Link></span>
         </form>
       </div>
