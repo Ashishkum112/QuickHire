@@ -1,28 +1,33 @@
-import React from 'react'
-import {Carousal,CarousalContent,CarousalItem} from "./ui/carousel"
+import React from "react";
+// import { Card, CardContent } from "@/components/ui/card"
+import { Carousel,CarouselContent,CarouselItem,CarouselNext,CarouselPrevious } from "@/components/ui/carousel"
+import { Button } from "@/components/ui/button"
 
-const category=[
-    "Frontend Developer",
-    "Backend Developer",
-    "Data Science",
-    "Full Stack Developer"
-]
+const category = [
+  "Frontend Developer",
+  "Backend Developer",
+  "Data Science",
+  "Full Stack Developer",
+];
 
 const CategoryCarousel = () => {
   return (
     <div>
-       <Carousal>
-        <CarousalContent>
-            {
-
-            }
-            <CarousalItem>
-
-            </CarousalItem>
-        </CarousalContent>
-        </Carousal> 
+      <Carousel className="w-full max-w-xl mx-auto my-20">
+        <CarouselContent>
+          {
+          category.map((cat, index) => (
+            <CarouselItem className="md:basis-1/2 lg-basis-1/3">
+              <Button variant='outline' className="rounded-full ">{cat}</Button>
+            </CarouselItem>
+          ))
+          }
+        </CarouselContent>
+          <CarouselPrevious/>
+          <CarouselNext/>
+      </Carousel>
     </div>
-  )
-}
+  );
+};
 
-export default CategoryCarousel
+export default CategoryCarousel;
