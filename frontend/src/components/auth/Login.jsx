@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import axios from "axios";
 import { USER_API_END_POINT } from "../../utils/constants";
-import { setLoading } from "../../redux/authSlice";
+import { setLoading, setUser } from "../../redux/authSlice";
 import { useSelector,useDispatch } from "react-redux";
 import { Loader2 } from "lucide-react";
 
@@ -42,7 +42,8 @@ const Login = () => {
             withCredentials:true
         });
         if(res.data.success){
-            navigate('/')
+          dispatch(setUser(res.data.user))  
+          navigate('/')
             toast.success(res.data.message)
         }
     } catch (error) {
@@ -114,7 +115,7 @@ const Login = () => {
             </RadioGroup> 
           </div>
           {
-            loading ? <Button className='w-full my-4'><Loader2 className="mr-2 h-4 w-4 animate-spin"/> </Button> : 
+            loading ? <Button className='w-full my-4'><Loader2 className="mr-2 h-4 w-4 animate-spin"/> Please Wait </Button> : 
         <Button type='submit' className='w-full my-4'>Login</Button>
           }
         <span className="text-sm">Don't have an account ? <Link to='/signup' className='text-blue-600'>Sign up</Link></span>
