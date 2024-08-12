@@ -11,12 +11,78 @@ import {
   import { Label } from "@/components/ui/label"
   import { Input } from "@/components/ui/input"
 import { Button } from './ui/button'
-import { Loader2 } from 'lucide-react'
+import { Fullscreen, Loader2 } from 'lucide-react'
+import { useDispatch, useSelector } from 'react-redux'
+import { USER_API_END_POINT } from '../utils/constants'
+import { Content } from '@radix-ui/react-popover'
+import { toast } from 'sonner'
+import axios from 'axios'
+import { setUser } from '../redux/authSlice'
   
 
 const UpdateProfileDialog = ({open,setOpen}) => {
   
     const [loading,setLoading] = useState(false);
+    const {user} = useSelector(store=> store.auth);
+
+    const [input, setInput ] = useState({
+        fullname:user?.fullname,
+        email:user?.email,
+        phoneNumber:user?.phoneNumber,
+        bio:user?.profile?.bio,
+        skills:user?.profile?.skills?.map(skill=>skill),
+        file:user?.profile?.resume
+    });
+    const dispatch  = useDispatch();
+
+    const changeEventHandler = (e) =>{
+        setInput({...input,[e.target.name]:e.target.value});
+    }
+
+    const fileChangeEventHanndler = (e) =>{
+        const file = e.target.files?.[0];
+        setInput({...input, file})
+    }
+
+    const submitHandler = async(e) =>{
+        e.preventDefault();
+        const formData= new FormData();
+        formData.append("fullname",input.fullname);
+        formData.append("email",input.email);
+        formData.append("phoneNumber",input.phoneNumber);
+        formData.append("bio",input.bio);
+        formData.append("skills",input.skills);
+
+        if(input.file){
+            formData.append('file', input.file)
+        }
+
+        try {
+
+            setLoading(true);
+
+            const res = await axios.post(`${USER_API_END_POINT}/profile/update`,formData,{
+                Headers:{
+                    'ContentType':'multipart/form-data'
+                },
+                withCredentials:true
+            });
+            if(res.data.success){
+                dispatch(setUser(res.data.user));
+                toast.success(res.data.message);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response.data.message);    
+        }
+        finally{
+            setLoading(false);
+        }
+        setOpen(false);
+        console.log(input);
+        
+    }
+
     return (
     <div>
         <Dialog open={open} >
@@ -24,13 +90,16 @@ const UpdateProfileDialog = ({open,setOpen}) => {
                 <DialogHeader>
                     <DialogTitle>Update Profile</DialogTitle>
                 </DialogHeader>
-                <form>
+                <form onSubmit={submitHandler}>
                     <div className='grid gap-4 py-4'>
                     <div className='grid grid-cols-4 items-center gap-4'>
                     <Label htmlfor="name" className='text-right'>Name</Label>
                     <Input 
                     id="name"
                     name="name"
+                    value={input.fullname}
+                    onChange = {changeEventHandler}
+                    type='text'
                     className='col-span-3'
                     />
                     </div>
@@ -39,6 +108,9 @@ const UpdateProfileDialog = ({open,setOpen}) => {
                     <Input 
                     id="email"
                     name="email"
+                    type='email'
+                    value={input.email}
+                    onChange = {changeEventHandler}
                     className='col-span-3'
                     />
                     </div>
@@ -47,6 +119,8 @@ const UpdateProfileDialog = ({open,setOpen}) => {
                     <Input 
                     id="number"
                     name="number"
+                    value={input.phoneNumber}
+                    onChange = {changeEventHandler}
                     className='col-span-3'
                     />
                     </div>
@@ -55,6 +129,8 @@ const UpdateProfileDialog = ({open,setOpen}) => {
                     <Input 
                     id="bio"
                     name="bio"
+                    value={input.bio}
+                    onChange = {changeEventHandler}
                     className='col-span-3'
                     />
                     </div>
@@ -63,6 +139,9 @@ const UpdateProfileDialog = ({open,setOpen}) => {
                     <Input 
                     id="skills"
                     name="skills"
+                    type='text'
+                    value={input.skills}
+                    onChange = {changeEventHandler}
                     className='col-span-3'
                     />
                     </div>
@@ -72,6 +151,7 @@ const UpdateProfileDialog = ({open,setOpen}) => {
                     id="file"
                     name="file"
                     type='file'
+                    onChange={fileChangeEventHanndler}
                     accept='application/pdf'
                     className='col-span-3'
                     />
