@@ -10,7 +10,7 @@ import { USER_API_END_POINT } from "../../utils/constants";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../redux/authSlice";
-import { Flag } from "lucide-react";
+import { Flag, Loader2 } from "lucide-react";
 
 const Signup = () => {
 
