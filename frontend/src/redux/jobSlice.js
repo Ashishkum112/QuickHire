@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Car, Search } from "lucide-react";
 
 const jobSlice = createSlice({
     name:"job",

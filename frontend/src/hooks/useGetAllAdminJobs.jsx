@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { JOB_API_END_POINT } from '../utils/constants';
 import { useDispatch } from 'react-redux';
-import { setAllAdminJobs, setAllJobs } from '../redux/jobSlice';
+import { setAllAdminJobs } from '../redux/jobSlice';
 import axios from 'axios';
 
 const useGetAllAdminJobs = () => {
