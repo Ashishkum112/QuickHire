@@ -86,8 +86,8 @@ const Navbar = () => {
                   />
                 </Avatar>
               </PopoverTrigger>
-              <PopoverContent className="w-80">
-                <div className="flex gap-4 space-y-2">
+              <PopoverContent className="w-60 bg-white shadow-md rounded-md ">
+                <div className="flex gap-2">
                   <Avatar className="cursor-pointer">
                     <AvatarImage
                       src={user?.profile?.profilePhoto}
@@ -95,26 +95,35 @@ const Navbar = () => {
                     />
                   </Avatar>
                   <div>
-                    <h4 className="font-medium">{user?.fullname}</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {user?.profile?.bio}{" "}
+                    <h4 className="my-2 font-medium text-gray-800">
+                      {user?.fullname}
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      {user?.profile?.bio}
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-col my-2 text-gray-500">
-                  {
-                  user && user.role === "student" && (
+                <div className="flex flex-col my-2 text-gray-600">
+                  {user && user.role === "student" && (
                     <div className="flex w-fit items-center gap-2 cursor-pointer">
-                      <User2 />
-                      <Button variant="link">
-                        <Link to="/profile">View Profile</Link>
-                      </Button>
+                      <User2 className="text-gray-800"/>
+                      <Link to="/profile">
+                        <Button
+                          variant="Ghost"
+                          className="text-indigo-600 hover:underline"
+                        >
+                          View Profile
+                        </Button>
+                      </Link>
                     </div>
                   )}
-
                   <div className="flex w-fit items-center gap-2 cursor-pointer">
-                    <LogOut />
-                    <Button onClick={logoutHandler} variant="link">
+                    <LogOut className="text-gray-800" />
+                    <Button
+                      onClick={logoutHandler}
+                      variant='Ghost'
+                      className="text-red-600 "
+                    >
                       Logout
                     </Button>
                   </div>
