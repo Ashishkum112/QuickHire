@@ -9,12 +9,14 @@ import { Button } from "@/components/ui/button"
 import AppliedJobTable from './AppliedJobTable';
 import UpdateProfileDialog from './UpdateProfileDialog';
 import { useSelector } from 'react-redux';
+import useGetAppliedJobs from '../hooks/useGetAppliedJobs';
 
-// const skills = ["HTML","CSS","JavaScript","Reactjs"];
+
 const isResume = true;
 
 
 const Profile = () => {
+    useGetAppliedJobs();
     const [open,setOpen] = useState(false);
     const {user} = useSelector(store=>store.auth);
 
