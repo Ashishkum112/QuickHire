@@ -48,9 +48,9 @@ const Profile = () => {
             </div>
             <div className='my-5'>
                 <h1>Skills</h1>
-                <div className='flex items-center gap-3 gap-1'>
+                <div className='flex items-center gap-3'>
                     {
-                        user?.profile?.skills.length !==  0 ? user?.profile?.skills.map((item,index) => <Badge key={index}>{item}</Badge>) : <span>NA</span>
+                        user?.profile?.skills.length !==  0 ? user?.profile?.skills.map((item,index) => <Badge className='bg-[#6A38C2] font-bold text-sm' key={index}>{item}</Badge>) : <span>NA</span>
                     }
                 </div>
             </div>

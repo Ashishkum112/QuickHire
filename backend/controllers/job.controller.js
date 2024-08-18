@@ -59,6 +59,7 @@ export const getAllJobs = async(req,res)=>{
             success:true
         })
     } catch (error) {
+        console.log(error);
         
     }
 }
