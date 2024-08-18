@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Navbar from "../shared/Navbar";
@@ -15,7 +15,7 @@ import { Flag, Loader2 } from "lucide-react";
 const Signup = () => {
 
     const navigate = useNavigate();
-    const {loading} = useSelector(store=>store.auth);
+    const {loading,user} = useSelector(store=>store.auth);
     const dispatch = useDispatch();
 
     const [input,setInput] = useState({
@@ -66,6 +66,11 @@ const Signup = () => {
           dispatch(setLoading(false))
         }
       }
+      useEffect(()=>{
+        if(user){
+          navigate('/');
+        }
+      })
 
   return (
     <div>

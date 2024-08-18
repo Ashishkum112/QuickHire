@@ -12,7 +12,7 @@ const filterData=[
     },
     {
         filterType:"Industry",
-        array:["Frontend Developer","Backend Developer","Full-Stack Developer"]
+        array:["Frontend Developer","Backend Developer","Full-Stack Developer","Data Science"]
     },
     {
         filterType:"Salary",
