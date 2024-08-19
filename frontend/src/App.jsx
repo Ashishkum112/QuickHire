@@ -16,6 +16,7 @@ import PostJob from './components/admin/PostJob'
 import Applicants from './components/admin/Applicants'
 import ProtectedRoute from './components/admin/ProtectedRoute'
 import ErrorPage from './components/ErrorPage'
+import AboutUs from './components/AboutUs'
 
 const appRouter = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ const appRouter = createBrowserRouter([
   {
     path:"*",
     element:<ErrorPage/>
+  },
+  {
+    path:'/aboutus',
+    element:<AboutUs/>
   }
 ])
 
