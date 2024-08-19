@@ -62,8 +62,8 @@ const UpdateProfileDialog = ({open,setOpen}) => {
             setLoading(true);
 
             const res = await axios.post(`${USER_API_END_POINT}/profile/update`,formData,{
-                Headers:{
-                    'ContentType':'multipart/form-data'
+                headers:{
+                    'Content-Type':'multipart/form-data'
                 },
                 withCredentials:true
             });
@@ -79,8 +79,6 @@ const UpdateProfileDialog = ({open,setOpen}) => {
             setLoading(false);
         }
         setOpen(false);
-        console.log(input);
-        
     }
 
     return (
@@ -93,10 +91,10 @@ const UpdateProfileDialog = ({open,setOpen}) => {
                 <form onSubmit={submitHandler}>
                     <div className='grid gap-4 py-4'>
                     <div className='grid grid-cols-4 items-center gap-4'>
-                    <Label htmlfor="name" className='text-right'>Name</Label>
+                    <Label htmlFor="name" className='text-right'>Full Name</Label>
                     <Input 
                     id="name"
-                    name="name"
+                    name="fullname"
                     value={input.fullname}
                     onChange = {changeEventHandler}
                     type='text'
@@ -104,7 +102,7 @@ const UpdateProfileDialog = ({open,setOpen}) => {
                     />
                     </div>
                     <div className='grid grid-cols-4 items-center gap-4'>
-                    <Label htmlfor="email" className='text-right'>Email</Label>
+                    <Label htmlFor="email" className='text-right'>Email</Label>
                     <Input 
                     id="email"
                     name="email"
@@ -115,17 +113,17 @@ const UpdateProfileDialog = ({open,setOpen}) => {
                     />
                     </div>
                     <div className='grid grid-cols-4 items-center gap-4'>
-                    <Label htmlfor="number" className='text-right'>Number</Label>
+                    <Label htmlFor="number" className='text-right'>Number</Label>
                     <Input 
                     id="number"
-                    name="number"
+                    name="phoneNumber"
                     value={input.phoneNumber}
                     onChange = {changeEventHandler}
                     className='col-span-3'
                     />
                     </div>
                     <div className='grid grid-cols-4 items-center gap-4'>
-                    <Label htmlfor="bio" className='text-right'>Bio</Label>
+                    <Label htmlFor="bio" className='text-right'>Bio</Label>
                     <Input 
                     id="bio"
                     name="bio"
@@ -135,7 +133,7 @@ const UpdateProfileDialog = ({open,setOpen}) => {
                     />
                     </div>
                     <div className='grid grid-cols-4 items-center gap-4'>
-                    <Label htmlfor="skills" className='text-right'>Skills</Label>
+                    <Label htmlFor="skills" className='text-right'>Skills</Label>
                     <Input 
                     id="skills"
                     name="skills"
@@ -146,7 +144,7 @@ const UpdateProfileDialog = ({open,setOpen}) => {
                     />
                     </div>
                     <div className='grid grid-cols-4 items-center gap-4'>
-                    <Label htmlfor="file" className='text-right'>Resume</Label>
+                    <Label htmlFor="file" className='text-right'>Resume</Label>
                     <Input 
                     id="file"
                     name="file"

@@ -56,9 +56,6 @@ export const register = async(req,res) => {
 export const login = async(req,res) => {
     try{
         const {email,password,role} = req.body;
-        console.log('Email:', email);
-        console.log('Password:', password);
-        console.log('Role:', role);
         if(!email || !password || !role){
             return res.status(400).json({
                 message:"Something is missing",
@@ -73,7 +70,6 @@ export const login = async(req,res) => {
             })
         }
         // Debugging log for user password
-        console.log('User password:', user.password);
 
         // Validate that user.password is defined
         if (!user.password) {

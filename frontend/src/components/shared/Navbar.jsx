@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Popover } from "../ui/popover";
+import { Label } from "../ui/label";
 import { Button } from "@/components/ui/button";
 import { PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -75,16 +76,20 @@ const Navbar = () => {
                   Sign Up
                 </Button>
               </Link>
+              
             </div>
           ) : (
             <Popover>
               <PopoverTrigger asChild>
+                <div className="flex items-center gap-2 cursor-pointer">
                 <Avatar className="cursor-pointer">
                   <AvatarImage
                     src={user?.profile?.profilePhoto}
                     alt="@shadcn"
                   />
                 </Avatar>
+                <span className="font-medium text-gray-800">{user?.fullname?.charAt(0).toUpperCase() + user?.fullname?.slice(1).toLowerCase()}</span>
+                </div>
               </PopoverTrigger>
               <PopoverContent className="w-60 bg-white shadow-md rounded-md ">
                 <div className="flex gap-2">
