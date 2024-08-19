@@ -18,6 +18,9 @@ const Home = () => {
     if(user?.role === 'recruiter'){
       navigate('/admin/companies');
     }
+    if(user?.role != 'recruiter' && user?.role != 'student'){
+      navigate('/login');
+    }
   },[]);
   
   return (
