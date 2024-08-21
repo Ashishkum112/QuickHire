@@ -23,6 +23,5 @@ createRoot(document.getElementById('root')).render(
     </Provider>
     <Toaster/>
     </ChakraProvider>
-
   </StrictMode>,
 )

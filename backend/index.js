@@ -1,4 +1,4 @@
-import express, { application } from "express";
+import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from 'dotenv';
@@ -8,39 +8,25 @@ import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
 import { geminiApi } from './geminiApi.js'; // Import the AI service
-import path from "path"
-    
-dotenv.config({});
+import path from "path";
+
+dotenv.config();
 
 const app = express();
 
 const __dirname = path.resolve();
 console.log(__dirname);
 
-
-app.get("/home", (req, res) => {
-    return res.status(200).json({
-        message: "I am coming from backend",
-        success: true
-    });
-});
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-
-app.use(express.static(path.join(__dirname,"/frontend/dist")));
-app.get("*",(req,res)=>{
-     res.sendFile(path.resolve(__dirname, "frontend","dist", "index.html"));
-})
-
+// CORS configuration
 const corsOptions = {
     origin: process.env.URL,
     credentials: true
 };
 app.use(cors(corsOptions));
 
-const PORT = process.env.PORT || 3000;
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // API routes
 app.use("/api/v1/user", userRoute);
@@ -65,6 +51,16 @@ app.post('/api/v1/generate-response', async (req, res) => {
         });
     }
 });
+
+// Serve static files
+app.use(express.static(path.join(__dirname, "frontend", "dist")));
+
+// Handle all other routes (wildcard) to serve the frontend app
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+});
+
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     connectDB();
