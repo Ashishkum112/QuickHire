@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import { USER_API_END_POINT } from "../../utils/constants";
 import { setUser } from "../../redux/authSlice";
+import ColorModeSwitcher from "../../ColorModeSwitcher";
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
@@ -34,7 +35,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-gray-50">
+    <div >
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
         <div>
           <h1 className="text-2xl font-bold">
@@ -63,8 +64,12 @@ const Navbar = () => {
                 <li>
                   <Link to="/browse">Browse</Link>
                 </li>
+                <ColorModeSwitcher/>
                 <li>
                   <Link to="/aboutus">About Us</Link>
+                </li>
+                <li>
+                  <Link to="/generative-ai">AI-Search</Link>
                 </li>
               </>
             )}

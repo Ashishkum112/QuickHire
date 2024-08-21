@@ -17,6 +17,7 @@ import Applicants from './components/admin/Applicants'
 import ProtectedRoute from './components/admin/ProtectedRoute'
 import ErrorPage from './components/ErrorPage'
 import AboutUs from './components/AboutUs'
+import GeminiApi from './components/GeminiApi'
 
 const appRouter = createBrowserRouter([
   {
@@ -80,6 +81,11 @@ const appRouter = createBrowserRouter([
   {
     path:'/aboutus',
     element:<AboutUs/>
+  }
+  ,
+  {
+    path:'/generative-ai',
+    element:<GeminiApi/>
   }
 ])
 
