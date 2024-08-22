@@ -35,22 +35,22 @@ app.use("/api/v1/job", jobRoute);
 app.use('/api/v1/application', applicationRoute);
 
 // AI route
-app.post('/api/v1/generate-response', async (req, res) => {
-    try {
-        const userMessage = req.body.message;
-        const aiResponse = await geminiApi(userMessage);
-        res.status(200).json({
-            success: true,
-            response: aiResponse,
-        });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Error generating AI response',
-            error: error.message,
-        });
-    }
-});
+// app.post('/api/v1/generate-response', async (req, res) => {
+//     try {
+//         const userMessage = req.body.message;
+//         const aiResponse = await geminiApi(userMessage);
+//         res.status(200).json({
+//             success: true
+//             response: aiResponse,
+//         });
+//     } catch (error) {
+//         res.status(500).json({
+//             success: false,
+//             message: 'Error generating AI response',
+//             error: error.message,
+//         });
+//     }
+// });
 
 // Serve static files
 app.use(express.static(path.join(__dirname, "frontend", "dist")));

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSearchedQuery } from "../redux/jobSlice";
+import { useColorMode } from '@chakra-ui/react'; // Import useColorMode
 
 const categories = [
   "Frontend Developer",
@@ -29,6 +30,7 @@ const slideVariants = {
 const CategoryCarousel = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { colorMode } = useColorMode(); // Get the current color mode
 
   const searchJobHandler = (query) => {
     dispatch(setSearchedQuery(query));
@@ -39,7 +41,7 @@ const CategoryCarousel = () => {
   const duplicatedCategories = [...categories, ...categories];
 
   return (
-    <div className="relative w-full max-w-2xl mx-auto my-20 overflow-hidden">
+    <div className={`relative w-full max-w-2xl mx-auto my-20 overflow-hidden ${colorMode === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
       <motion.div
         className="flex"
         variants={slideVariants}
@@ -54,7 +56,8 @@ const CategoryCarousel = () => {
             <Button
               onClick={() => searchJobHandler(cat)}
               variant='outline'
-              className="w-full rounded-full font-semibold text-base "
+              className={`w-full rounded-full font-semibold text-base ${colorMode === 'dark' ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-200 text-gray-800 border-gray-300'}`}
+              style={{ borderColor: colorMode === 'dark' ? 'transparent' : 'inherit' }}
             >
               {cat}
             </Button>
