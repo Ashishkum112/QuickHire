@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Popover } from "../ui/popover";
-import { Label } from "../ui/label";
 import { Button } from "@/components/ui/button";
 import { PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { LogOut, User2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
@@ -12,13 +11,46 @@ import axios from "axios";
 import { USER_API_END_POINT } from "../../utils/constants";
 import { setUser } from "../../redux/authSlice";
 import ColorModeSwitcher from "../../ColorModeSwitcher";
-import { useColorMode } from '@chakra-ui/react';
+import { useColorMode } from "@chakra-ui/react";
+import gsap from "gsap";
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { colorMode } = useColorMode(); // Get the current color mode
+  const { colorMode } = useColorMode(); // Use Chakra's useColorMode hook
+
+  useEffect(() => {
+    const links = document.querySelectorAll(".nav-link");
+
+    const handleMouseEnter = (link) => {
+      gsap.to(link, {
+        duration: 0.3,
+        borderBottom: "2px solid #F83002", // Underline color
+        ease: "power1.out",
+      });
+    };
+
+    const handleMouseLeave = (link) => {
+      gsap.to(link, {
+        duration: 0.3,
+        borderBottom: "none",
+        ease: "power1.in",
+      });
+    };
+
+    links.forEach((link) => {
+      link.addEventListener("mouseenter", () => handleMouseEnter(link));
+      link.addEventListener("mouseleave", () => handleMouseLeave(link));
+    });
+
+    return () => {
+      links.forEach((link) => {
+        link.removeEventListener("mouseenter", () => handleMouseEnter(link));
+        link.removeEventListener("mouseleave", () => handleMouseLeave(link));
+      });
+    };
+  }, []);
 
   const logoutHandler = async () => {
     try {
@@ -37,47 +69,58 @@ const Navbar = () => {
   };
 
   return (
-    <div className={`${colorMode === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-800'}`}>
-      <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
+    <div>
+      <div className="flex flex-wrap items-center justify-between mx-auto max-w-7xl h-16 px-4 md:px-8">
         <div>
-          <h1 className={`text-2xl font-bold ${colorMode === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+          <h1 className="text-2xl md:text-3xl font-bold">
             Job<span className="text-[#F83002]">Portal</span>
           </h1>
         </div>
-        <div className="flex items-center gap-12">
-          <ul className="flex font-medium items-center gap-5">
+        <div className="flex items-center gap-4 md:gap-6">
+          <ul className="flex flex-col md:flex-row font-medium items-center gap-4 md:gap-6">
             {user && user.role === "recruiter" ? (
               <>
                 <li>
-                  <Link to="/admin/companies">Companies</Link>
+                  <Link to="/admin/companies" className="nav-link">
+                    Companies
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/admin/jobs">Jobs</Link>
+                  <Link to="/admin/jobs" className="nav-link">
+                    Jobs
+                  </Link>
                 </li>
               </>
             ) : (
               <>
                 <li>
-                  <Link to="/">Home</Link>
+                  <Link to="/" className="nav-link">
+                    Home
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/jobs">Jobs</Link>
+                  <Link to="/jobs" className="nav-link">
+                    Jobs
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/browse">Browse</Link>
-                </li>
-                <ColorModeSwitcher />
-                <li>
-                  <Link to="/aboutus">About Us</Link>
+                  <Link to="/browse" className="nav-link">
+                    Browse
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/generative-ai">AI-Search</Link>
+                  <ColorModeSwitcher />
+                </li>
+                <li>
+                  <Link to="/aboutus" className="nav-link">
+                    About Us
+                  </Link>
                 </li>
               </>
             )}
           </ul>
           {!user ? (
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col md:flex-row items-center gap-2">
               <Link to="/login">
                 <Button variant="outline">Login</Button>
               </Link>
@@ -96,39 +139,46 @@ const Navbar = () => {
                       src={user?.profile?.profilePhoto}
                       alt="@shadcn"
                     />
-                    <AvatarFallback>{user?.fullname?.charAt(0).toUpperCase()}</AvatarFallback>
                   </Avatar>
-                  <span className={`font-medium ${colorMode === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-                    {user?.fullname?.charAt(0).toUpperCase() + user?.fullname?.slice(1).toLowerCase()}
+                  <span
+                    className={`font-medium ${
+                      colorMode === "dark" ? "text-gray-200" : "text-gray-800"
+                    }`}
+                  >
+                    {user?.fullname?.charAt(0).toUpperCase() +
+                      user?.fullname?.slice(1).toLowerCase()}
                   </span>
                 </div>
               </PopoverTrigger>
-              <PopoverContent className={`w-60 ${colorMode === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'} shadow-md rounded-md`}>
+              <PopoverContent className="w-60 bg-white dark:bg-gray-700 shadow-md rounded-md">
                 <div className="flex gap-2">
                   <Avatar className="cursor-pointer">
                     <AvatarImage
                       src={user?.profile?.profilePhoto}
                       alt="@shadcn"
                     />
-                    <AvatarFallback>{user?.fullname?.charAt(0).toUpperCase()}</AvatarFallback>
                   </Avatar>
                   <div>
-                    <h4 className={`my-2 font-medium ${colorMode === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+                    <h4
+                      className={`my-2 font-medium ${
+                        colorMode === "dark" ? "text-gray-200" : "text-gray-800"
+                      }`}
+                    >
                       {user?.fullname}
                     </h4>
-                    <p className={`text-sm ${colorMode === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                    <p className="text-sm text-gray-600">
                       {user?.profile?.bio}
                     </p>
                   </div>
                 </div>
-                <div className={`flex flex-col my-2 ${colorMode === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                <div className="flex flex-col my-2 text-gray-600">
                   {user && user.role === "student" && (
                     <div className="flex w-fit items-center gap-2 cursor-pointer">
-                      <User2 className={`text-${colorMode === 'dark' ? 'white' : 'gray-800'}`} />
+                      <User2 className="text-gray-800" />
                       <Link to="/profile">
                         <Button
-                          variant="Ghost"
-                          className={`text-indigo-600 hover:underline ${colorMode === 'dark' ? 'text-indigo-300' : 'text-indigo-600'}`}
+                          variant="ghost"
+                          className="text-indigo-600 hover:underline"
                         >
                           View Profile
                         </Button>
@@ -136,11 +186,11 @@ const Navbar = () => {
                     </div>
                   )}
                   <div className="flex w-fit items-center gap-2 cursor-pointer">
-                    <LogOut className={`text-${colorMode === 'dark' ? 'white' : 'gray-800'}`} />
+                    <LogOut className="text-gray-800" />
                     <Button
                       onClick={logoutHandler}
-                      variant='Ghost'
-                      className={`text-red-600 ${colorMode === 'dark' ? 'text-red-400' : 'text-red-600'}`}
+                      variant="ghost"
+                      className="text-red-600"
                     >
                       Logout
                     </Button>

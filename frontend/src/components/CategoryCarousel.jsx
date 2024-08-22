@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSearchedQuery } from "../redux/jobSlice";
-import { useColorMode } from '@chakra-ui/react'; // Import useColorMode
+import { useColorMode } from '@chakra-ui/react';
 
 const categories = [
   "Frontend Developer",
@@ -30,7 +30,7 @@ const slideVariants = {
 const CategoryCarousel = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { colorMode } = useColorMode(); // Get the current color mode
+  const { colorMode } = useColorMode();
 
   const searchJobHandler = (query) => {
     dispatch(setSearchedQuery(query));
@@ -41,17 +41,17 @@ const CategoryCarousel = () => {
   const duplicatedCategories = [...categories, ...categories];
 
   return (
-    <div className={`relative w-full max-w-2xl mx-auto my-20 overflow-hidden ${colorMode === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+    <div className={`relative w-full max-w-screen-sm md:max-w-2xl mx-auto my-10 overflow-hidden ${colorMode === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
       <motion.div
         className="flex"
         variants={slideVariants}
         animate="animate"
-        style={{ width: `calc(${duplicatedCategories.length} * 20%)` }} // Adjust width to accommodate duplicated items
+        style={{ width: `calc(${duplicatedCategories.length} * 25%)` }} // Adjust width to accommodate duplicated items
       >
         {duplicatedCategories.map((cat, index) => (
           <div
             key={index}
-            className="flex-shrink-0 w-full md:basis-1/2 lg:basis-1/3 p-2"
+            className="flex-shrink-0 w-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 p-2"
           >
             <Button
               onClick={() => searchJobHandler(cat)}
