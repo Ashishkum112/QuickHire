@@ -7,6 +7,7 @@ import Footer from './shared/Footer'
 import useGetAllJobs from '../hooks/useGetAllJobs'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import FAANGCarousel from './FAANGCarousel'
 
 
 const Home = () => {
@@ -18,9 +19,6 @@ const Home = () => {
     if(user?.role === 'recruiter'){
       navigate('/admin/companies');
     }
-    if(user?.role != 'recruiter' && user?.role != 'student'){
-      navigate('/login');
-    }
   },[]);
   
   return (
@@ -28,6 +26,7 @@ const Home = () => {
         <Navbar/>
         <HeroSection/>
         <CategoryCarousel/>
+        <FAANGCarousel/>
         <LatestJobs/>
         <Footer/>
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -11,26 +11,25 @@ const categories = [
   "Backend Developer",
   "Data Science",
   "Full Stack Developer",
+  "Machine Learning",
+  "Business Analyst",
+  "UI/UX Designer",
 ];
 
-const slideVariants = {
-  animate: {
-    x: ["0%", "-50%"], // Adjust to move only half the width of the carousel
-    transition: {
-      x: {
-        repeat: Infinity,
-        repeatType: "loop",
-        duration: 6, // Adjust the duration to control the sliding speed
-        ease: "linear",
-      },
-    },
-  },
-};
-
 const CategoryCarousel = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { colorMode } = useColorMode();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const searchJobHandler = (query) => {
     dispatch(setSearchedQuery(query));
@@ -40,18 +39,35 @@ const CategoryCarousel = () => {
   // Duplicate categories to ensure seamless looping
   const duplicatedCategories = [...categories, ...categories];
 
+  // Define widths separately for mobile and desktop
+  const mobileCategoryWidth = 100 / 5; // Show 3 items at once on mobile
+  const desktopCategoryWidth = 100 / 7; // Show 5 items at once on desktop
+
+  // Determine category width based on the screen size
+  const categoryWidth = isMobile ? mobileCategoryWidth : desktopCategoryWidth;
+
   return (
-    <div className={`relative w-full max-w-screen-sm md:max-w-2xl mx-auto my-10 overflow-hidden ${colorMode === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+    <div className={`relative w-full mx-auto my-10 overflow-hidden ${colorMode === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
       <motion.div
         className="flex"
-        variants={slideVariants}
-        animate="animate"
-        style={{ width: `calc(${duplicatedCategories.length} * 25%)` }} // Adjust width to accommodate duplicated items
+        animate={{ x: [`0%`, `-${categoryWidth * categories.length}%`] }}
+        transition={{ 
+          x: { 
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: isMobile ? 18 : 15, // Adjusted speeds
+            ease: "linear"
+          }
+        }}
+        style={{
+          width: `calc(${duplicatedCategories.length} * ${categoryWidth}%)` // Dynamic width calculation
+        }}
       >
         {duplicatedCategories.map((cat, index) => (
           <div
             key={index}
-            className="flex-shrink-0 w-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 p-2"
+            className="flex-shrink-0"
+            style={{ width: `${categoryWidth}%` }} // Adjust width for each item
           >
             <Button
               onClick={() => searchJobHandler(cat)}
