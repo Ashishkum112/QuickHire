@@ -11,7 +11,8 @@ const LatestJobCards = ({ job }) => {
   return (
     <motion.div 
       onClick={() => navigate(`/description/${job._id}`)} 
-      className={`p-5 rounded-md shadow-xl cursor-pointer ${colorMode === 'dark' ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-100 text-gray-900'}`}
+      className={`p-5 rounded-md shadow-xl cursor-pointer ${colorMode === 'dark' ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-100 text-gray-900'} 
+      sm:max-w-full sm:flex sm:flex-col sm:justify-between sm:items-start`} // Flexbox adjustments for responsiveness
       initial={{ opacity: 0, y: 20 }} // Start with hidden and slightly below
       animate={{ opacity: 1, y: 0 }}  // Animate to visible and in place
       transition={{ duration: 0.5 }}   // Duration of the animation
@@ -25,10 +26,10 @@ const LatestJobCards = ({ job }) => {
         <h1 className={`font-bold text-lg my-2 ${colorMode === 'dark' ? 'text-white' : 'text-gray-900'}`}>{job?.title}</h1>
         <p className={`text-sm ${colorMode === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>{job?.description}</p>
       </div>
-      <div className='flex items-center gap-2 mt-4'>
+      <div className='flex flex-wrap items-center gap-2 mt-4'> 
         <Badge className={`font-bold ${colorMode === 'dark' ? 'text-blue-400' : 'text-blue-700'}`} variant='ghost'>{job?.position} Positions</Badge>
         <Badge className={`font-bold ${colorMode === 'dark' ? 'text-[#F83002]' : 'text-[#F83002]'}`} variant='ghost'>{job?.jobType}</Badge>
-        <Badge className={`font-bold ${colorMode === 'dark' ? 'text-[#7209b7]' : 'text-[#7209b7]'}`} variant='ghost'>{job?.salary}LPA</Badge>
+        <Badge className={`font-bold ${colorMode === 'dark' ? 'text-[#7209b7]' : 'text-[#7209b7]'}`} variant='ghost'>{job?.salary} LPA</Badge>
       </div>
     </motion.div>
   );
