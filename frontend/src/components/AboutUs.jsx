@@ -34,15 +34,15 @@ const AboutUs = () => {
     {
       name: 'Ashish Kumar',
       photo: 'https://media.licdn.com/dms/image/v2/D4D03AQFa6PIz6xI9Wg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1714852892017?e=1729728000&v=beta&t=m6_weLA7FyDyEopyny2oC4as1O3cD5NcRYmFk0Mw3pw',
-      linkedin: 'https://www.linkedin.com/in/johndoe/',
-      contact: 'john.doe@example.com',
+      linkedin: 'https://www.linkedin.com/in/ashish-web-dev/',
+      contact: 'ashishkumarr0214@gmail.com',
       bio: "MERN Stack Developer",
     },
     {
       name: 'Satyam Mohanty',
       photo: 'https://media.licdn.com/dms/image/v2/D4D03AQGY8QpyoxU_4w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1684141655554?e=1729728000&v=beta&t=y-hHWPo8LkzDQ4fGCyujgrUbYBiL4-YT6__UIeU39Fg',
-      linkedin: 'https://www.linkedin.com/in/ashish-web-dev/',
-      contact: 'jane.smith@example.com',
+      linkedin: 'https://www.linkedin.com/in/satyam-mohanty-43882918a/',
+      contact: 'satyammohanty@myyahoo.com',
       bio: "MERN Stack Developer",
     },
     // Add more developers as needed
@@ -79,7 +79,7 @@ const AboutUs = () => {
                   rel="noopener noreferrer"
                   className="text-blue-500 flex items-center justify-center mt-2"
                 >
-                  <img src="/path-to-linkedin-logo.png" alt="LinkedIn" className="w-5 h-5 mr-2" />
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" className="w-5 h-5 mr-2" />
                   LinkedIn Profile
                 </a>
                 <p className={`mt-2 ${colorMode === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>{dev.contact}</p>

@@ -94,9 +94,11 @@ const Navbar = () => {
               )}
             </button>
           </div>
+          <Link to="/">
           <h1 className="text-2xl md:text-3xl font-bold">
-            Job<span className="text-[#6A38C2]">Portal</span>
+            Quick<span className="text-[#6A38C2]">Hire</span>
           </h1>
+              </Link>
         </div>
 
         {/* Desktop Navbar */}
