@@ -229,6 +229,9 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Navbar (Popover) */}
+      <div className="absolute top-2 right-16">
+            <ColorModeSwitcher />
+          </div>
       {isMobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-50 bg-gray-900 bg-opacity-90 flex flex-col items-center justify-center">
           <button
@@ -344,9 +347,7 @@ const Navbar = () => {
             </div>
           )}
           {/* Dark Mode Toggle */}
-          <div className="absolute top-2 right-16">
-            <ColorModeSwitcher />
-          </div>
+          
         </div>
       )}
     </div>

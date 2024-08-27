@@ -6,6 +6,8 @@ import { setSearchedQuery } from '../redux/jobSlice';
 import { useNavigate } from 'react-router-dom'; 
 import { useColorMode } from '@chakra-ui/react';
 
+
+
 const HeroSection = () => {
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
