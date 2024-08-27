@@ -2,17 +2,21 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useColorMode } from '@chakra-ui/react';
 import atlasian from '@/assets/atlasian.png';
-import google from '@/assets/google.webp';
+import google from '@/assets/google.png';
 import netflix from '@/assets/netflix.png';
-import amazon from '@/assets/amazon.svg';
+import amazon3 from '@/assets/amazon3.webp';
 import meta from '@/assets/meta.svg';
+import microsoft from '@/assets/microsoft.webp';
+
+
 
 const faangImages = [
   atlasian,
   google,
   netflix,
-  amazon,
+  amazon3,
   meta,
+  microsoft,
 ];
 
 const FAANGCarousel = () => {
@@ -40,7 +44,9 @@ const FAANGCarousel = () => {
   const itemWidth = isMobile ? mobileItemWidth : desktopItemWidth;
 
   return (
-    <div className={`relative w-full mx-auto my-10 overflow-hidden ${colorMode === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+    <div 
+    className={`
+    relative w-full mx-auto my-10 overflow-hidden ${colorMode === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
       <motion.div
         className="flex"
         animate={{ x: [`-${itemWidth * faangImages.length}%`, `0%`] }} // Reversed direction

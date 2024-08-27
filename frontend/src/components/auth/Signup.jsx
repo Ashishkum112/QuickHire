@@ -122,11 +122,11 @@ const Signup = () => {
               value={input.password}
               name="password"
               onChange={changeEventHandler}
-              placeholder="password"
+              placeholder="Password"
             />
           </div>
-          <div className="flex flex-col sm:flex-row items-center justify-between">
-            <RadioGroup className="flex items-center gap-4 my-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+            <RadioGroup className="flex items-center gap-4 my-4 ">
               <div className="flex items-center space-x-2">
                 <Input
                   type="radio"
@@ -150,8 +150,8 @@ const Signup = () => {
                 <Label htmlFor="r2">Recruiter</Label>
               </div>
             </RadioGroup>
-            <div className="flex items-center gap-2 my-4 sm:my-0">
-              <Label>Profile</Label>
+            <div className="flex gap-1 my-4 sm:my-0">
+              <Label className='text-sm'>Profile-Photo<span className="text-xs text-red-700" > *Mandatory</span></Label>
               <Input
                 accept="image/*"
                 type="file"
