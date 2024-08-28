@@ -27,6 +27,7 @@ const PostJob = () => {
     requirements: "",
     salary: "",
     location: "",
+    ApplyLink:"",
     jobType: "",
     experience: "",
     position: 0,
@@ -135,6 +136,16 @@ const PostJob = () => {
                 type="text"
                 name="jobType"
                 value={input.jobType}
+                onChange={changeEventHandler}
+                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+              />
+            </div>
+            <div>
+              <Label>Apply Link</Label>
+              <Input
+                type="text"
+                name="ApplyLink"
+                value={input.ApplyLink}
                 onChange={changeEventHandler}
                 className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
               />

@@ -4,9 +4,9 @@ import { User } from "../models/user.model.js";
 export const postJob = async (req,res)=>{
     try {
         const {title,description,requirements,salary,location,
-            jobType,experience,position,companyId} = req.body
+            jobType,ApplyLink,experience,position,companyId} = req.body
             const userId = req.id;
-        if(!title || !description || !requirements || !salary || !location || !jobType || !experience || !position || !companyId){
+        if(!title || !description || !requirements || !salary || !location || !jobType || !experience || !position || !companyId || !ApplyLink){
             return res.status(400).json({
         message:"Something is missing",
         success:false
@@ -19,6 +19,7 @@ export const postJob = async (req,res)=>{
             location,
             salary:Number(salary),
             jobType,
+            ApplyLink,
             position,
             experienceLevel:experience,
             company:companyId,
