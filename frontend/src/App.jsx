@@ -1,102 +1,122 @@
-import { useState } from 'react'
-import './App.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Login from './components/auth/Login'
-import Signup from './components/auth/Signup'
-import Home from './components/Home'
-import Jobs from './components/Jobs'
-import Browse from './components/Browse'
-import Profile from './components/Profile'
-import JobDescription from './components/JobDescription'
-import Companies from './components/admin/Companies'
-import CompanyCreate from './components/admin/CompanyCreate'
-import CompanySetup from './components/admin/CompanySetup'
-import AdminJobs from './components/admin/AdminJobs'
-import PostJob from './components/admin/PostJob'
-import Applicants from './components/admin/Applicants'
-import ProtectedRoute from './components/admin/ProtectedRoute'
-import ErrorPage from './components/ErrorPage'
-import AboutUs from './components/AboutUs'
-import GeminiApi from './components/GeminiApi'
+import React,{ useState, Suspense } from 'react';
+import './App.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Loading from './components/Loading';
+
+const LazyHome = React.lazy(() => import('./components/Home'));
+const LazyLogin = React.lazy(() => import('./components/auth/Login'));
+const LazySignup = React.lazy(() => import('./components/auth/Signup'));
+const LazyJobs = React.lazy(() => import('./components/Jobs'));
+const LazyBrowse = React.lazy(() => import('./components/Browse'));
+const LazyProfile = React.lazy(() => import('./components/Profile'));
+const LazyJobDescription = React.lazy(() => import('./components/JobDescription'));
+const LazyCompanies = React.lazy(() => import('./components/admin/Companies'));
+const LazyCompanyCreate = React.lazy(() => import('./components/admin/CompanyCreate'));
+const LazyCompanySetup = React.lazy(() => import('./components/admin/CompanySetup'));
+const LazyAdminJobs = React.lazy(() => import('./components/admin/AdminJobs'));
+const LazyPostJob = React.lazy(() => import('./components/admin/PostJob'));
+const LazyApplicants = React.lazy(() => import('./components/admin/Applicants'));
+const LazyErrorPage = React.lazy(() => import('./components/ErrorPage'));
+const LazyAboutUs = React.lazy(() => import('./components/AboutUs'));
+const LazyGeminiApi = React.lazy(() => import('./components/GeminiApi'));
+const ProtectedRoute = React.lazy(() => import('./components/admin/ProtectedRoute'));
 
 const appRouter = createBrowserRouter([
   {
-    path:'/',
-    element:<Home/>
+    path: '/',
+    element: <LazyHome />,
   },
   {
-    path:'/login',
-    element:<Login/>
+    path: '/login',
+    element: <LazyLogin />,
   },
   {
-    path:'/signup',
-    element:<Signup/>
+    path: '/signup',
+    element: <LazySignup />,
   },
   {
-    path:'/jobs',
-    element:<Jobs/>
-  },
-  ,
-  {
-    path:'/description/:id',
-    element:<JobDescription/>
+    path: '/jobs',
+    element: <LazyJobs />,
   },
   {
-    path:'/browse',
-    element:<Browse/>
+    path: '/description/:id',
+    element: <LazyJobDescription />,
   },
   {
-    path:"/profile",
-    element:<Profile/>
+    path: '/browse',
+    element: <LazyBrowse />,
+  },
+  {
+    path: '/profile',
+    element: <LazyProfile />,
   },
   // routes for admin start here
   {
-    path:'/admin/companies',
-    element:<ProtectedRoute><Companies/></ProtectedRoute>
+    path: '/admin/companies',
+    element: (
+      <ProtectedRoute>
+        <LazyCompanies />
+      </ProtectedRoute>
+    ),
   },
   {
-    path:'/admin/companies/create',
-    element:<CompanyCreate/>
+    path: '/admin/companies/create',
+    element: <LazyCompanyCreate />,
   },
   {
-    path:'/admin/companies/:id',
-    element:<ProtectedRoute><CompanySetup/></ProtectedRoute>
+    path: '/admin/companies/:id',
+    element: (
+      <ProtectedRoute>
+        <LazyCompanySetup />
+      </ProtectedRoute>
+    ),
   },
   {
-    path:'/admin/jobs',
-    element:<ProtectedRoute><AdminJobs/></ProtectedRoute>
+    path: '/admin/jobs',
+    element: (
+      <ProtectedRoute>
+        <LazyAdminJobs />
+      </ProtectedRoute>
+    ),
   },
   {
-    path:'/admin/jobs/create',
-    element:<ProtectedRoute><PostJob/></ProtectedRoute>
+    path: '/admin/jobs/create',
+    element: (
+      <ProtectedRoute>
+        <LazyPostJob />
+      </ProtectedRoute>
+    ),
   },
   {
-    path:'/admin/jobs/:id/applicants',
-    element:<ProtectedRoute><Applicants/></ProtectedRoute>
+    path: '/admin/jobs/:id/applicants',
+    element: (
+      <ProtectedRoute>
+        <LazyApplicants />
+      </ProtectedRoute>
+    ),
   },
   {
-    path:"*",
-    element:<ErrorPage/>
+    path: '*',
+    element: <LazyErrorPage />,
   },
   {
-    path:'/aboutus',
-    element:<AboutUs/>
-  }
-  ,
+    path: '/aboutus',
+    element: <LazyAboutUs />,
+  },
   {
-    path:'/generative-ai',
-    element:<GeminiApi/>
-  }
-])
+    path: '/generative-ai',
+    element: <LazyGeminiApi />,
+  },
+]);
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
-    <>
-    <RouterProvider router={appRouter}/>
-    </>
-  )
+    <Suspense fallback={<Loading />}>
+      <RouterProvider router={appRouter} />
+    </Suspense>
+  );
 }
 
-export default App
+export default App;

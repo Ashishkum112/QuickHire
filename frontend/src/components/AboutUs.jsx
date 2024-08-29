@@ -55,7 +55,7 @@ const AboutUs = () => {
         <h1 
           className={'text-3xl md:text-4xl font-bold text-center mb-8 md:mb-10 text-purple-500'}
         >
-          About Us
+          Developers
         </h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-10">
@@ -68,7 +68,7 @@ const AboutUs = () => {
               onMouseLeave={(e) => resetBox(e.currentTarget)}
             >
               <div className="w-32 h-32 md:w-40 md:h-40 flex justify-center">
-                <img src={dev.photo} alt={dev.name} className="w-full h-full rounded-full object-cover" />
+                <img src={dev.photo} alt={dev.name} className="w-full h-full object-cover" />
               </div>
               <div className="mt-4 text-center">
                 <h2 className="text-xl md:text-2xl font-bold">{dev.name}</h2>
@@ -82,7 +82,10 @@ const AboutUs = () => {
                   <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" className="w-5 h-5 mr-2" />
                   LinkedIn Profile
                 </a>
-                <p className={`mt-2 ${colorMode === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>{dev.contact}</p>
+                <p className={`text-sm mt-2 ${colorMode === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+  For any inquiries, feel free to reach out to us at: <span className="font-medium">{dev.contact}</span>
+</p>
+
               </div>
             </div>
           ))}

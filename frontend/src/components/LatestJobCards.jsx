@@ -10,6 +10,9 @@ const LatestJobCards = ({ job }) => {
   const navigate = useNavigate();
   const { colorMode } = useColorMode();
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
 
   const daysAgoFunction = (mongodbTime) => {
     const createdAt = new Date(mongodbTime);
@@ -18,9 +21,6 @@ const LatestJobCards = ({ job }) => {
     return Math.floor(timeDifference / (1000 * 24 * 60 * 60));
   };
 
-  const toggleDescription = () => {
-    setShowFullDescription(!showFullDescription);
-  };
 
   return (
     <motion.div
