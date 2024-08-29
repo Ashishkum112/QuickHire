@@ -8,15 +8,11 @@ import { useColorMode } from '@chakra-ui/react';
 const filterData = [
     {
         filterType: "Location",
-        array: ["Delhi NCR", "Bangalore", "Hyderabad", "Pune", "Mumbai"]
+        array: ["Delhi", "Bangaluru", "Hyderabad", "Pune", "Mumbai", "Bhubaneswar"]
     },
     {
         filterType: "Industry",
-        array: ["Frontend Developer", "Backend Developer", "Full-Stack Developer", "Data Science"]
-    },
-    {
-        filterType: "Salary",
-        array: ["0-40k", "42-1lakh", "1lakh to 5lakh"]
+        array: ["Frontend Developer", "Backend Developer", "FullStack Developer", "Data Science", "Machine Learning", "Business Analyst"]
     },
 ];
 
@@ -38,29 +34,46 @@ const FilterCard = () => {
             <h1 className={`font-bold text-lg ${colorMode === 'dark' ? 'text-white' : 'text-black'}`}>Filter Jobs</h1>
             <hr className='mt-3' />
             <RadioGroup value={selectedValue} onValueChange={changeHandler} className="mt-3">
-                {
-                    filterData.map((data, index) => (
-                        <div key={index} className="mb-4">
-                            <h2 className={`font-bold text-md ${colorMode === 'dark' ? 'text-white' : 'text-black'}`}>{data.filterType}</h2>
-                            {
-                                data.array.map((item, idx) => {
-                                    const itemId = `${index}-${idx}`;
-                                    return (
-                                        <div className='flex items-center space-x-2 my-2' key={itemId}>
-                                            <RadioGroupItem
-                                                value={item}
-                                                id={itemId}
-                                                className={`h-4 w-4 ${colorMode === 'dark' ? 'bg-gray-700 border-gray-500' : 'bg-white border-gray-300'}`}
-                                            />
-                                            <Label htmlFor={itemId} className={`text-sm ${colorMode === 'dark' ? 'text-white' : 'text-black'}`}>{item}</Label>
-                                        </div>
-                                    );
-                                })
-                            }
-                        </div>
-                    ))
-                }
+                <div className="filter-grid">
+                    {
+                        filterData.map((data, index) => (
+                            <div key={index} className="filter-group mb-4">
+                                <h2 className={`font-bold text-md ${colorMode === 'dark' ? 'text-white' : 'text-black'}`}>{data.filterType}</h2>
+                                {
+                                    data.array.map((item, idx) => {
+                                        const itemId = `${index}-${idx}`;
+                                        return (
+                                            <div className='flex items-center space-x-2 my-2' key={itemId}>
+                                                <RadioGroupItem
+                                                    value={item}
+                                                    id={itemId}
+                                                    className={`h-4 w-4 ${colorMode === 'dark' ? 'bg-gray-700 border-gray-500' : 'bg-white border-gray-300'}`}
+                                                />
+                                                <Label htmlFor={itemId} className={`text-sm ${colorMode === 'dark' ? 'text-white' : 'text-black'}`}>{item}</Label>
+                                            </div>
+                                        );
+                                    })
+                                }
+                            </div>
+                        ))
+                    }
+                </div>
             </RadioGroup>
+            <style jsx>{`
+                /* Default layout (Desktop and larger) */
+                .filter-grid {
+                    display: block; /* Display filters vertically by default */
+                }
+
+                /* Mobile view (Two-column layout) */
+                @media (max-width: 640px) {
+                    .filter-grid {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 1rem;
+                    }
+                }
+            `}</style>
         </div>
     );
 };

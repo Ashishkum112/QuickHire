@@ -1,35 +1,103 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useColorMode } from '@chakra-ui/react'; // Import useColorMode
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useColorMode } from '@chakra-ui/react';
 
 const LatestJobCards = ({ job }) => {
   const navigate = useNavigate();
-  const { colorMode } = useColorMode(); // Get the current color mode
+  const { colorMode } = useColorMode();
+  const [showFullDescription, setShowFullDescription] = useState(false);
+
+  const daysAgoFunction = (mongodbTime) => {
+    const createdAt = new Date(mongodbTime);
+    const currentTime = new Date();
+    const timeDifference = currentTime - createdAt;
+    return Math.floor(timeDifference / (1000 * 24 * 60 * 60));
+  };
+
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
 
   return (
-    <motion.div 
-      onClick={() => navigate(`/description/${job._id}`)} 
-      className={`p-5 rounded-md shadow-xl cursor-pointer ${colorMode === 'dark' ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-100 text-gray-900'} 
-      sm:max-w-full sm:flex sm:flex-col sm:justify-between sm:items-start`} // Flexbox adjustments for responsiveness
-      initial={{ opacity: 0, y: 20 }} // Start with hidden and slightly below
-      animate={{ opacity: 1, y: 0 }}  // Animate to visible and in place
-      transition={{ duration: 0.5 }}   // Duration of the animation
-      whileHover={{ scale: 1.05 }}     // Slightly scale up on hover
+    <motion.div
+      onClick={() => navigate(`/description/${job._id}`)}
+      className={`p-5 rounded-md shadow-xl ${colorMode === 'dark' ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-100 text-black'}`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.0 }}
+      whileHover={{ scale: 1.05 }}
     >
-      <div>
-        <h1 className={`font-medium text-lg ${colorMode === 'dark' ? 'text-white' : 'text-gray-900'}`}>{job?.company?.name}</h1>
-        <p className={`text-sm ${colorMode === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>India</p>
+      <div className='flex items-center justify-between'>
+        <p className={`text-sm ${colorMode === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+          {daysAgoFunction(job?.createdAt) === 0 ? "Today" : `${daysAgoFunction(job?.createdAt)} days ago`}
+        </p>
+      </div>
+      <div className='flex items-center gap-2 my-2'>
+        <Button className='p-6' variant='outline' size='icon'>
+          <Avatar>
+            <AvatarImage src={job?.company?.logo} />
+            <AvatarFallback>{job?.company?.name.charAt(0)}</AvatarFallback>
+          </Avatar>
+        </Button>
+        <div>
+          <h1 className={`font-medium text-lg ${colorMode === 'dark' ? 'text-white' : 'text-black'}`}>
+            {job?.company?.name}
+          </h1>
+          <p className={`text-sm ${colorMode === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>India</p>
+        </div>
       </div>
       <div>
-        <h1 className={`font-bold text-lg my-2 ${colorMode === 'dark' ? 'text-white' : 'text-gray-900'}`}>{job?.title}</h1>
-        <p className={`text-sm ${colorMode === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>{job?.description}</p>
+        <h1 className={`font-bold text-lg my-2 ${colorMode === 'dark' ? 'text-white' : 'text-black'}`}>
+          {job?.title}
+        </h1>
+        <p className={`text-sm ${colorMode === 'dark' ? 'text-gray-300' : 'text-gray-600'} ${!showFullDescription ? 'line-clamp-2' : ''}`}>
+          {job?.description}
+        </p>
+        {!showFullDescription && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation(); // Prevents the parent onClick from firing
+              toggleDescription();
+            }}
+            className="text-blue-500 underline text-sm"
+          >
+            See more
+          </button>
+        )}
+        {showFullDescription && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation(); // Prevents the parent onClick from firing
+              toggleDescription();
+            }}
+            className="text-blue-500 underline text-sm"
+          >
+            See less
+          </button>
+        )}
       </div>
-      <div className='flex flex-wrap items-center gap-2 mt-4'> 
-        <Badge className={`font-bold ${colorMode === 'dark' ? 'text-blue-400' : 'text-blue-700'}`} variant='ghost'>{job?.position} Positions</Badge>
-        <Badge className={`font-bold ${colorMode === 'dark' ? 'text-[#F83002]' : 'text-[#F83002]'}`} variant='ghost'>{job?.jobType}</Badge>
-        <Badge className={`font-bold ${colorMode === 'dark' ? 'text-[#7209b7]' : 'text-[#7209b7]'}`} variant='ghost'>{job?.salary} LPA</Badge>
+      <div className='flex items-center gap-2 mt-4'>
+        <Badge className={'text-blue-700 font-bold'} variant='ghost'>
+          {job?.position} Positions
+        </Badge>
+        <Badge className={'text-[#F83002] font-bold'} variant='ghost'>
+          {job?.jobType}
+        </Badge>
+        <Badge className={'text-[#7209b7] font-bold'} variant='ghost'>
+          {job?.salary} LPA
+        </Badge>
+      </div>
+      <div className='flex items-center gap-4 mt-4'>
+        <Button className='text-gray-950' onClick={() => navigate(`/description/${job?._id}`)} variant='outline'>
+          Details
+        </Button>
+        <Button className='bg-[#7209b7] text-white'>
+          Save For Later
+        </Button>
       </div>
     </motion.div>
   );
