@@ -29,9 +29,10 @@ const HeroSection = () => {
           Search, Apply & <br />
           Get Your <span className='text-[#6A38C2]'>Dream Job</span>
         </h1>
-        <p className='text-sm sm:text-base md:text-lg'>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas obcaecati odit recusandae dolor sapiente.
-        </p>
+        <p className='text-sm sm:text-base md:text-lg lg:text-xl font-medium leading-relaxed sm:leading-relaxed md:leading-loose text-gray-700'>
+        Your Journey to Success Starts with Finding the Perfect Job Match.
+</p>
+
         <div 
           className={`flex w-full max-w-md shadow-lg border pl-3 rounded-full items-center gap-4 mx-auto 
             ${colorMode === 'light' ? 'border-gray-200 bg-white' : 'border-gray-600 bg-gray-800'}`}>
