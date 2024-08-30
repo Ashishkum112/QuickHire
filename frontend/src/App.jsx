@@ -50,7 +50,7 @@ const appRouter = createBrowserRouter([
     path: '/profile',
     element: <LazyProfile />,
   },
-  // routes for admin start here
+  // Admin routes
   {
     path: '/admin/companies',
     element: (
@@ -61,7 +61,11 @@ const appRouter = createBrowserRouter([
   },
   {
     path: '/admin/companies/create',
-    element: <LazyCompanyCreate />,
+    element: (
+      <ProtectedRoute>
+        <LazyCompanyCreate />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/admin/companies/:id',

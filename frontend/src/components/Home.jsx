@@ -20,6 +20,13 @@ const Home = () => {
       navigate('/admin/companies');
     }
   },[]);
+  useEffect(()=>{
+    if(user?.role != 'recruiter' || user?.role != 'student'){
+      navigate('/login');
+    }
+  },[]);
+
+
   
   return (
     <div>

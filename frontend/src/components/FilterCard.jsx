@@ -8,11 +8,11 @@ import { useColorMode } from '@chakra-ui/react';
 const filterData = [
     {
         filterType: "Location",
-        array: ["Delhi", "Bangaluru", "Hyderabad", "Pune", "Mumbai", "Bhubaneswar"]
+        array: ["Delhi", "Bengaluru", "Hyderabad", "Pune", "Mumbai", "Bhubaneswar"]
     },
     {
         filterType: "Industry",
-        array: ["Frontend Developer", "Backend Developer", "FullStack Developer", "Data Science", "Machine Learning", "Business Analyst"]
+        array: ["Intern","Frontend Developer", "Backend Developer", "FullStack Developer", "Data Science", "Machine Learning", "Business Analyst"]
     },
 ];
 
