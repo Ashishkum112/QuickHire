@@ -32,8 +32,8 @@ const Home = () => {
     <div>
         <Navbar/>
         <HeroSection/>
-        {/* <CategoryCarousel/> */}
-        {/* <FAANGCarousel/> */}
+        <CategoryCarousel/>
+        <FAANGCarousel/>
         <LatestJobs/>
         <Footer/>
     </div>
