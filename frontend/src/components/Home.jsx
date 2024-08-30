@@ -21,7 +21,7 @@ const Home = () => {
     }
   },[]);
   useEffect(()=>{
-    if(user?.role != 'recruiter' || user?.role != 'student'){
+    if(user?.role != 'recruiter' && user?.role != 'student'){
       navigate('/login');
     }
   },[]);
