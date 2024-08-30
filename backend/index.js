@@ -9,6 +9,7 @@ import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
 import { geminiApi } from './geminiApi.js'; // Import the AI service
 import path from "path";
+import axios from "axios";  // Import axios for self-pinging
 
 dotenv.config();
 
@@ -66,3 +67,14 @@ app.listen(PORT, () => {
     connectDB();
     console.log(`Server running at port ${PORT}`);
 });
+
+// Keep-alive pinging
+setInterval(() => {
+    axios.get(`https://job-portal-7iyl.onrender.com`)
+        .then(response => {
+            console.log('Keep-alive ping successful');
+        })
+        .catch(error => {
+            console.error('Keep-alive ping failed:', error.message);
+        });
+}, 5 * 60 * 1000);  // Ping every 5 minutes
