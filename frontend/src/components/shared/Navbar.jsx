@@ -134,6 +134,11 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
+                  <Link to="/ai" className="nav-link">
+                    Ai-Buddy
+                  </Link>
+                </li>
+                <li>
                   <Link to="/browse" className="nav-link">
                     Browse
                   </Link>

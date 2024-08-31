@@ -22,11 +22,11 @@ const Home = () => {
       navigate('/admin/companies');
     }
   },[]);
-  useEffect(()=>{
-    if(user?.role != 'recruiter' && user?.role != 'student'){
-      navigate('/login');
-    }
-  },[]);
+  // useEffect(()=>{
+  //   if(user?.role != 'recruiter' && user?.role != 'student'){
+  //     navigate('/login');
+  //   }
+  // },[]);
 
 
   

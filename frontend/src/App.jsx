@@ -50,6 +50,10 @@ const appRouter = createBrowserRouter([
     path: '/profile',
     element: <LazyProfile />,
   },
+  {
+    path: '/ai',
+    element: <LazyGeminiApi />,
+  },
   // Admin routes
   {
     path: '/admin/companies',
