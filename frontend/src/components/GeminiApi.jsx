@@ -1,74 +1,87 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "./shared/Navbar";
-import { Button } from "./ui/button";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import { useColorMode } from "@chakra-ui/react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Job from './Job';
+import { Button, Spinner, Alert, AlertIcon } from '@chakra-ui/react';
+import Navbar from './shared/Navbar';
 
 const GeminiApi = () => {
-  const { colorMode } = useColorMode();
-  const [questions, setQuestions] = useState([]);
+  const [jobs, setJobs] = useState([]); // Ensure jobs is an array
+  const [questions, setQuestions] = useState({});
   const [loading, setLoading] = useState(false);
-  const [jobDescription, setJobDescription] = useState("");
-  const params = useParams();
-  const jobId = params.id;
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchJobDescription = async () => {
+    // Fetch jobs from your API
+    const fetchJobs = async () => {
       try {
-        const res = await axios.get(`/api/v1/job/get/${jobId}`, { withCredentials: true });
-        if (res.data.success) {
-          setJobDescription(res.data.job.description);
+        const response = await axios.get('/api/jobs'); // Replace with your jobs API endpoint
+        if (Array.isArray(response.data)) {
+          setJobs(response.data);
+        } else {
+          setError('Invalid data format received from the server.');
         }
-      } catch (error) {
-        console.error("Failed to fetch job description:", error.message);
+      } catch (err) {
+        setError('Failed to fetch jobs. Please try again.');
       }
     };
-    fetchJobDescription();
-  }, [jobId]);
 
-  const fetchQuestions = async () => {
-    setLoading(true);
+    fetchJobs();
+  }, []);
+
+  const generateQuestions = async (jobId, jobDescription) => {
     try {
-      const prompt = `Provide a list of 10 probable interview questions suitable for the following job: ${jobDescription}`;
-      const response = await axios.post('/api/v1/generative-ai', { prompt });
-
-      setQuestions(response.data.split('\n').filter(q => q.trim()));
-    } catch (error) {
-      console.error("Failed to generate interview questions:", error.message);
+      setLoading(true);
+      setError(null);
+      // Replace with your actual API endpoint for generating questions
+      const response = await axios.post('/api/generate-questions', {
+        jobDescription,
+      });
+      setQuestions((prev) => ({ ...prev, [jobId]: response.data.questions }));
+    } catch (err) {
+      setError('Failed to generate questions. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className={`${colorMode === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-900"} min-h-screen`}>
-      <Navbar />
-      <div className="max-w-7xl mx-auto my-10 px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
-          <h1 className="font-bold text-2xl sm:text-3xl mb-4">Generate Interview Questions</h1>
-          <Button
-            onClick={fetchQuestions}
-            disabled={loading}
-            className={`w-full sm:w-auto ${
-              colorMode === "dark"
-                ? "bg-[#7209b7] text-white"
-                : "bg-blue-500 text-white"
-            }`}
-          >
-            {loading ? "Generating..." : "Generate Your Interview Questions"}
-          </Button>
-        </div>
-        <div className="space-y-4">
-          {questions.length > 0 && (
-            <div>
-              <h2 className="font-bold text-xl mb-4">Interview Questions:</h2>
-              <ol className="list-decimal pl-5 space-y-2">
-                {questions.map((question, index) => (
-                  <li key={index} className="text-lg">{question}</li>
-                ))}
-              </ol>
-            </div>
+    <div>
+      <Navbar /> {/* Include Navbar at the top */}
+      <div className="p-8">
+        <h1 className="text-3xl font-bold mb-6">AI-Generated Interview Questions</h1>
+        {error && (
+          <Alert status="error" mb={4}>
+            <AlertIcon />
+            {error}
+          </Alert>
+        )}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {jobs.length > 0 ? (
+            jobs.map((job) => (
+              <div key={job._id} className="relative bg-white shadow-md rounded-lg overflow-hidden p-4">
+                <Job job={job} />
+                <div className="mt-4">
+                  <Button
+                    onClick={() => generateQuestions(job._id, job.description)}
+                    colorScheme="blue"
+                    isLoading={loading}
+                  >
+                    Generate Questions
+                  </Button>
+                  {loading && <Spinner size="sm" color="blue.500" className="ml-4" />}
+                  {error && <p className="text-red-500 mt-2">{error}</p>}
+                  {questions[job._id] && (
+                    <ul className="mt-4 list-disc list-inside pl-4">
+                      {questions[job._id].map((question, index) => (
+                        <li key={index} className="mb-2">{`${index + 1}. ${question}`}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No jobs available.</p>
           )}
         </div>
       </div>
