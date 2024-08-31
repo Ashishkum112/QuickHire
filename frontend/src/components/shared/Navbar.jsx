@@ -302,6 +302,15 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link
+                    to="/ai"
+                    className="nav-link"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    AI-Buddy
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     to="/aboutus"
                     className="nav-link"
                     onClick={() => setIsMobileMenuOpen(false)}
