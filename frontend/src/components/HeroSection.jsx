@@ -6,8 +6,6 @@ import { setSearchedQuery } from '../redux/jobSlice';
 import { useNavigate } from 'react-router-dom'; 
 import { useColorMode } from '@chakra-ui/react';
 
-
-
 const HeroSection = () => {
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
@@ -20,18 +18,20 @@ const HeroSection = () => {
   }
 
   return (
-    <div className='text-center px-4 sm:px-6 md:px-8 lg:px-10'>
+    <div 
+      className={`text-center px-4 sm:px-6 md:px-8 lg:px-10 mt-0
+        `}>
       <div className='flex flex-col gap-4 sm:gap-6 md:gap-8 my-8 sm:my-12 md:my-16'>
-        <span className='mx-auto px-4 py-2 rounded-full bg-gray-100 text-[#F83002] font-semibold text-sm sm:text-base md:text-lg'>
+        <span className='mx-auto px-4 py-2 rounded-full bg-white text-[#F83002] font-semibold text-sm sm:text-base md:text-lg'>
           No.1 Job Hunt Website
         </span>
-        <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold'>
+        <h1 className={`text-3xl sm:text-4xl md:text-5xl font-bold ${colorMode === 'light' ? 'text-black' : 'text-gray-100'}`}>
           Search, Apply & <br />
           Get Your <span className='text-[#6A38C2]'>Dream Job</span>
         </h1>
-        <p className='text-sm sm:text-base md:text-lg lg:text-xl font-medium leading-relaxed sm:leading-relaxed md:leading-loose text-gray-700'>
-        Your Journey to Success Starts with Finding the Perfect Job Match.
-</p>
+        <p className='text-sm sm:text-base md:text-lg lg:text-xl font-medium leading-relaxed sm:leading-relaxed md:leading-loose'>
+          Your Journey to Success Starts with Finding the Perfect Job Match.
+        </p>
 
         <div 
           className={`flex w-full max-w-md shadow-lg border pl-3 rounded-full items-center gap-4 mx-auto 

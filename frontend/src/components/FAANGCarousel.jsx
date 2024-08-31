@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useColorMode } from '@chakra-ui/react';
-import atlasian from '@/assets/atlasian.png';
 import google from '@/assets/google.png';
+import amazon from "@/assets/amazon.jpg"
+import IBM from "@/assets/IBM.png"
 import netflix from '@/assets/netflix.png';
 import amazon3 from '@/assets/amazon3.webp';
-import meta from '@/assets/meta.svg';
 import microsoft from '@/assets/microsoft.webp';
 
 
 
 const faangImages = [
-  atlasian,
-  google,
+  amazon,
   netflix,
-  amazon3,
-  meta,
+  IBM,
+  google,
   microsoft,
 ];
 
@@ -46,7 +45,10 @@ const FAANGCarousel = () => {
   return (
     <div 
     className={`
-    relative w-full mx-auto my-10 overflow-hidden ${colorMode === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+      
+    relative w-full mx-auto my-10 overflow-hidden ${colorMode === 'light' 
+      ? 'bg-gradient-to-r from-purple-100 via-gray-100 to-blue-50 text-black' 
+      : 'bg-gradient-to-r from-gray-800 via-gray-900 to-black text-gray-100'}`}>
       <motion.div
         className="flex"
         animate={{ x: [`-${itemWidth * faangImages.length}%`, `0%`] }} // Reversed direction
@@ -54,7 +56,7 @@ const FAANGCarousel = () => {
           x: { 
             repeat: Infinity,
             repeatType: "loop",
-            duration: isMobile ? 18 : 15, // Adjusted speeds
+            duration: isMobile ? 11 : 15, // Adjusted speeds
             ease: "linear"
           }
         }}
@@ -71,7 +73,7 @@ const FAANGCarousel = () => {
             <img
               src={img}
               alt={`FAANG MNC ${index}`}
-              className="h-9 sm:h-14 object-contain" // Ensure the entire image is visible
+              className="h-11 sm:h-14 object-contain" // Ensure the entire image is visible
             />
           </div>
         ))}

@@ -49,7 +49,9 @@ const AboutUs = () => {
   ];
 
   return (
-    <div>
+    <div className={`${colorMode === 'light' 
+      ? 'bg-gradient-to-r from-purple-100 via-gray-100 to-blue-50 text-black' 
+      : 'bg-gradient-to-r from-gray-800 via-gray-900 to-black text-gray-100'}`}>
       <Navbar />
       <div className="max-w-7xl mx-auto my-5 p-5">
         <h1 
@@ -58,7 +60,7 @@ const AboutUs = () => {
           Developers
         </h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-10 ">
           {developers.map((dev, index) => (
             <div
               key={index}

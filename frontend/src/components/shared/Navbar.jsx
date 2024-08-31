@@ -74,10 +74,6 @@ const Navbar = () => {
     <div>
           <ColorModeSwitcher className="fixed top-[calc(4rem-50%)] right-4 z-50" />
 
-
-
-
-
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4 md:px-8">
         <div className="flex items-center gap-4">
         
@@ -144,7 +140,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link to="/aboutus" className="nav-link">
-                    About Us
+                    Developers
                   </Link>
                 </li>
                 <li>
@@ -248,7 +244,7 @@ const Navbar = () => {
           >
             <X className="h-10 w-40 text-gray-100" />
           </button>
-          <ul className="flex flex-col items-center gap-6 text-white">
+          <ul className="flex flex-col items-center gap-6 text-white text-xl font-bold">
             {user && user.role === "recruiter" ? (
               <>
                 <li>
@@ -305,7 +301,7 @@ const Navbar = () => {
                     className="nav-link"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    About Us
+                    Developers
                   </Link>
                 </li>
               </>
