@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useColorMode } from '@chakra-ui/react';
+import AboutUs from './AboutUs';
 
 const LatestJobCards = ({ job }) => {
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ const LatestJobCards = ({ job }) => {
 
 
   return (
+    <div>
+     
     <motion.div
       onClick={() => navigate(`/description/${job._id}`)}
       className={`p-5 rounded-md shadow-xl ${colorMode === 'dark' ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-100 text-black'}`}
@@ -100,6 +103,7 @@ const LatestJobCards = ({ job }) => {
         </Button>
       </div>
     </motion.div>
+    </div>
   );
 };
 

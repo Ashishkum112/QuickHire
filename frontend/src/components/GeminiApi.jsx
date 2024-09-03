@@ -14,7 +14,7 @@ const GeminiApi = () => {
     // Fetch jobs from your API
     const fetchJobs = async () => {
       try {
-        const response = await axios.get('/api/jobs'); // Replace with your jobs API endpoint
+        const response = await axios.get('https://job-portal-7iyl.onrender.com/api/v1/job/get'); // Replace with your jobs API endpoint
         if (Array.isArray(response.data)) {
           setJobs(response.data);
         } else {
@@ -33,7 +33,7 @@ const GeminiApi = () => {
       setLoading(true);
       setError(null);
       // Replace with your actual API endpoint for generating questions
-      const response = await axios.post('/api/generate-questions', {
+      const response = await axios.post('https://job-portal-7iyl.onrender.com/api/v1/generative-ai', {
         jobDescription,
       });
       setQuestions((prev) => ({ ...prev, [jobId]: response.data.questions }));

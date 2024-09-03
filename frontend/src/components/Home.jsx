@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import FAANGCarousel from './FAANGCarousel'
 import { useColorMode } from "@chakra-ui/react";
+import AboutUs from './AboutUs'
 
 
 const Home = () => {
