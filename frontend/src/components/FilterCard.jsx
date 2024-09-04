@@ -4,6 +4,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useDispatch } from 'react-redux';
 import { setSearchedQuery } from '../redux/jobSlice';
 import { useColorMode } from '@chakra-ui/react';
+import { Collapse } from '@chakra-ui/react';
+import { useMediaQuery } from '@chakra-ui/react';
 
 const filterData = [
     {
@@ -11,8 +13,16 @@ const filterData = [
         array: ["Delhi", "Bengaluru", "Hyderabad", "Pune", "Mumbai", "Bhubaneswar"]
     },
     {
-        filterType: "Industry",
-        array: ["Intern","Frontend Developer", "Backend Developer", "FullStack Developer", "Data Science", "Machine Learning", "Business Analyst"]
+        filterType: "Software",
+        array: ["Software Engineer Intern", "Frontend Developer", "Backend Developer", "FullStack Developer", "Data Science", "Machine Learning", "DevOps Engineer", "QA Engineer", "Security Engineer"]
+    },
+    {
+        filterType: "Electronics",
+        array: ["Embedded Systems Engineer", "Hardware Engineer", "VLSI Engineer", "Circuit Design Engineer"]
+    },
+    {
+        filterType: "Consultancy",
+        array: ["Business Analyst","Human Resources Consultant","Sales Associate"]
     },
 ];
 
@@ -20,9 +30,15 @@ const FilterCard = () => {
     const { colorMode } = useColorMode(); // Get the current color mode
     const [selectedValue, setSelectedValue] = useState('');
     const dispatch = useDispatch();
+    const [expandedFilter, setExpandedFilter] = useState(null);
+    const [isMobile] = useMediaQuery("(max-width: 640px)");
 
     const changeHandler = (value) => {
         setSelectedValue(value);
+    };
+
+    const toggleFilter = (index) => {
+        setExpandedFilter(expandedFilter === index ? null : index);
     };
 
     useEffect(() => {
@@ -35,12 +51,18 @@ const FilterCard = () => {
             <hr className='mt-3' />
             <RadioGroup value={selectedValue} onValueChange={changeHandler} className="mt-3">
                 <div className="filter-grid">
-                    {
-                        filterData.map((data, index) => (
-                            <div key={index} className="filter-group mb-4">
-                                <h2 className={`font-bold text-md ${colorMode === 'dark' ? 'text-white' : 'text-black'}`}>{data.filterType}</h2>
-                                {
-                                    data.array.map((item, idx) => {
+                    {filterData.map((data, index) => (
+                        <div key={index} className="filter-group mb-4">
+                            <h2
+                                className={`font-bold text-md cursor-pointer ${colorMode === 'dark' ? 'text-white' : 'text-black'}`}
+                                onClick={() => isMobile && toggleFilter(index)}
+                            >
+                                {data.filterType}
+                            </h2>
+                            {/* Show dropdown in mobile view */}
+                            {isMobile ? (
+                                <Collapse in={expandedFilter === index} animateOpacity>
+                                    {data.array.map((item, idx) => {
                                         const itemId = `${index}-${idx}`;
                                         return (
                                             <div className='flex items-center space-x-2 my-2' key={itemId}>
@@ -52,11 +74,28 @@ const FilterCard = () => {
                                                 <Label htmlFor={itemId} className={`text-sm ${colorMode === 'dark' ? 'text-white' : 'text-black'}`}>{item}</Label>
                                             </div>
                                         );
-                                    })
-                                }
-                            </div>
-                        ))
-                    }
+                                    })}
+                                </Collapse>
+                            ) : (
+                                // Show inline items in desktop view
+                                <div>
+                                    {data.array.map((item, idx) => {
+                                        const itemId = `${index}-${idx}`;
+                                        return (
+                                            <div className='flex items-center space-x-2 my-2' key={itemId}>
+                                                <RadioGroupItem
+                                                    value={item}
+                                                    id={itemId}
+                                                    className={`h-4 w-4 ${colorMode === 'dark' ? 'bg-gray-700 border-gray-500' : 'bg-white border-gray-300'}`}
+                                                />
+                                                <Label htmlFor={itemId} className={`text-sm ${colorMode === 'dark' ? 'text-white' : 'text-black'}`}>{item}</Label>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
+                        </div>
+                    ))}
                 </div>
             </RadioGroup>
             <style jsx>{`
@@ -65,12 +104,10 @@ const FilterCard = () => {
                     display: block; /* Display filters vertically by default */
                 }
 
-                /* Mobile view (Two-column layout) */
+                /* Mobile view (Dropdown menu) */
                 @media (max-width: 640px) {
                     .filter-grid {
-                        display: grid;
-                        grid-template-columns: repeat(2, 1fr);
-                        gap: 1rem;
+                        display: block; /* Display filters as dropdown in mobile */
                     }
                 }
             `}</style>

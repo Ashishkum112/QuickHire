@@ -133,11 +133,11 @@ const Navbar = () => {
                     Jobs
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="/ai" className="nav-link">
                     Ai-Buddy
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link to="/browse" className="nav-link">
                     Browse
@@ -300,7 +300,7 @@ const Navbar = () => {
                     Browse
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link
                     to="/ai"
                     className="nav-link"
@@ -308,7 +308,7 @@ const Navbar = () => {
                   >
                     AI-Buddy
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link
                     to="/aboutus"
