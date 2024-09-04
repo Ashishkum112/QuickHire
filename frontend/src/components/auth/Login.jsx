@@ -12,6 +12,9 @@ import { setLoading, setUser } from "../../redux/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { Loader2 } from "lucide-react";
 
+import { useColorMode } from '@chakra-ui/react';
+
+
 const Login = () => {
   const [input, setInput] = useState({
     email: "",
@@ -21,6 +24,7 @@ const Login = () => {
   const { loading, user } = useSelector((store) => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { colorMode } = useColorMode();
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -56,15 +60,19 @@ const Login = () => {
   }, [user, navigate]);
 
   return (
-    <div >
+    <div className={`min-h-screen w-full ${colorMode === 'light' 
+      ? 'bg-gradient-to-r from-purple-100 via-gray-100 to-blue-100 text-black' 
+      : 'bg-gradient-to-r from-gray-800 via-gray-900 to-black text-gray-100'}`}>
       <Navbar />
-      <div className="flex items-center justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className={`${colorMode === 'light' 
+      ? 'bg-gradient-to-r from-purple-100 via-gray-100 to-blue-100 text-black' 
+      : 'bg-gradient-to-r from-gray-800 via-gray-900 to-black text-gray-100'} flex items-center justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`}>
         <form
           onSubmit={submitHandler}
-          className="w-full max-w-md border border-gray-200 rounded-md p-4 my-10 shadow-md"
+          className="w-full max-w-md border dark:border-gray-100 rounded-md p-4 my-10 shadow-xl"
         >
-          <h1 className="font-bold text-2xl mb-5 text-center">Login</h1>
-
+          <h1 className="font-bold text-2xl mb-5 text-center">Welcome!<br/>Let's Get You Logged In</h1>
+  
           <div className="my-2">
             <Label>Email</Label>
             <Input
@@ -123,15 +131,16 @@ const Login = () => {
             </Button>
           )}
           <span className="text-sm block text-center">
-            Don't have an account?{" "}
-            <Link to="/signup" className="text-blue-600">
+            Don't have an account?{"  "}
+
+            <Link to="/signup" className="text-blue-600 font-bold">
               Sign up
             </Link>
           </span>
         </form>
       </div>
     </div>
-  );
-};
-
+  )
+}
+  
 export default Login;
