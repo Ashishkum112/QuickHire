@@ -15,23 +15,6 @@ const AuthPrompt = () => {
 
   return (
     <div className=" flex flex-col">
-      {/* Background Image Section */}
-      <div
-        className="
-          w-full 
-          h-[19vh] 
-          sm:h-[50vh] 
-          md:hidden 
-          lg:hidden
-          xl:hidden  
-          bg-cover 
-          bg-center
-        "
-        style={{
-          backgroundImage: `url('/bg.png')`,
-        }}
-      ></div>
-
       {/* Content Section */}
       <div className="flex flex-col items-center justify-center py-12 px-8 rounded-lg text-center relative z-10">
         <h2 className="text-3xl font-extrabold mb-4">

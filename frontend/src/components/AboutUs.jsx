@@ -2,6 +2,7 @@ import Navbar from './shared/Navbar';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useColorMode } from '@chakra-ui/react'; // Assuming you're using Chakra UI for color mode
+import Footer from './shared/Footer';
 
 const AboutUs = () => {
   const { colorMode } = useColorMode(); // Get the current color mode
@@ -53,7 +54,7 @@ const AboutUs = () => {
       ? 'bg-gradient-to-r from-purple-100 via-gray-100 to-blue-50 text-black' 
       : 'bg-gradient-to-r from-gray-800 via-gray-900 to-black text-gray-100'}`}>
       <Navbar />
-      <div className="max-w-7xl mx-auto my-5 p-5">
+      <div className="min-h-screen mx-auto my-5 p-5">
         <h1 
           className={'text-3xl md:text-4xl font-bold text-center mb-8 md:mb-10 text-purple-500'}
         >
@@ -93,6 +94,7 @@ const AboutUs = () => {
           ))}
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

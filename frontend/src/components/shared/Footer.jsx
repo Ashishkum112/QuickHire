@@ -1,21 +1,34 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
-    <div>
-      <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="bg-gray-900 text-gray-300">
+      <div className="max-w-7xl mx-auto px-4 py-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
-          <div>
-            <h2 className="text-2xl font-bold mb-4">Quick<span className='text-purple-600'>Hire</span></h2>
-            <p className="text-sm mb-4">Your trusted partner in finding your dream job.</p>
-            <p className="text-sm">© {new Date().getFullYear()} QuickHire. All rights reserved.</p>
+          <div className="flex flex-col">
+            <h2 className="text-3xl font-bold mb-4 text-white">
+              Quick<span className="text-purple-600">Hire</span>
+            </h2>
+            <p className="text-sm mb-4">
+              Your trusted partner in finding your dream job.
+            </p>
+            <p className="text-sm mb-4">
+              © {new Date().getFullYear()} QuickHire. All rights reserved.
+            </p>
+            <div className="flex flex-col space-y-2">
+              <Link to="/" className="hover:text-white">Home</Link>
+              <Link to="/aboutus" className="hover:text-white">About Us</Link>
+              <Link to="/jobs" className="hover:text-white">Jobs</Link>
+              <Link to="/aboutus" className="hover:text-white">Contact</Link>
+            </div>
           </div>
 
           {/* Social Media */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
+          <div className="flex flex-col">
+            <h3 className="text-lg font-semibold mb-4 text-white">Follow Us</h3>
             <div className="flex space-x-4">
               <a href="https://facebook.com" className="text-gray-400 hover:text-gray-100" aria-label="Facebook">
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -34,11 +47,24 @@ const Footer = () => {
               </a>
             </div>
           </div>
+
+          {/* Quick Links */}
+          <div className="flex flex-col">
+            <h3 className="text-lg font-semibold mb-4 text-white">Quick Links</h3>
+            <div className="flex flex-col space-y-2">
+              <Link  className="hover:text-white">Privacy Policy</Link>
+              <Link  className="hover:text-white">Terms of Service</Link>
+              <Link  className="hover:text-white">Support</Link>
+              <Link className="hover:text-white">Blog</Link>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="bg-gray-800 py-4">
+      <div className="bg-gray-800 py-4 hover:cursor-pointer" onClick={()=>(navigate('/aboutus'))}>
         <div className="max-w-7xl mx-auto px-4 text-center text-gray-400">
-          <p className="text-sm">Crafted with ❤️ by QuickHire Team</p>
+          <p className="text-sm">
+            Crafted with ❤️ by the QuickHire Team
+          </p>
         </div>
       </div>
     </div>

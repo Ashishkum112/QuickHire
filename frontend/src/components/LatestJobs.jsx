@@ -6,11 +6,11 @@ import { Button } from '@/components/ui/button';
 
 const LatestJobs = () => {
   const { allJobs } = useSelector(store => store.job);
-  const { isAuthenticated } = useSelector(store => store.auth); // Assuming you have an `auth` slice in your Redux store
+  const { user } = useSelector(store => store.auth); // Assuming you have an `auth` slice in your Redux store
   const navigate = useNavigate();
 
   const handleSeeMore = () => {
-    if (isAuthenticated) {
+    if (user) {
       navigate('/jobs');
     } else {
       navigate('/login');

@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import FAANGCarousel from './FAANGCarousel';
 import { useColorMode } from "@chakra-ui/react";
 import AuthPrompt from './AuthPrompt';
+import FooterBanner from './FooterBanner';
 
 const Home = () => {
   useGetAllJobs();
@@ -32,6 +33,7 @@ const Home = () => {
         <CategoryCarousel />
         <FAANGCarousel />
         <LatestJobs />
+        <FooterBanner/>
         {!user && <AuthPrompt />} {/* Show AuthPrompt if user is not logged in */}
         <Footer />
     </div>
