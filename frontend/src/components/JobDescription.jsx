@@ -51,6 +51,15 @@ const JobDescription = () => {
     fetchSingleJob();
   }, [jobId, dispatch, user?._id]);
 
+  const handleApplyClick = () => {
+    if (user) {
+      // Ensuring the correct link is opened for the correct job
+      window.location.href = singleJob?.ApplyLink;
+    } else {
+      toast.error("Please log in to apply for this job.");
+    }
+  };
+
   return (
     <div className={`${colorMode === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-900"} min-h-screen`}>
       <Navbar />
@@ -75,79 +84,72 @@ const JobDescription = () => {
         <div className="my-10 space-y-6">
           <h1 className="border-b-2 border-b-gray-300 font-medium pb-2">Job Description</h1>
           <div className="space-y-4">
-  <h1 className="font-bold text-lg">
-    Role:
-    <span className={`pl-4 font-normal ${colorMode === "dark" ? "text-gray-300" : "text-gray-800"}`}>
-      {singleJob?.title}
-    </span>
-  </h1>
-  <h1 className="font-bold text-lg">
-    Location:
-    <span className={`pl-4 font-normal ${colorMode === "dark" ? "text-gray-300" : "text-gray-800"}`}>
-      {singleJob?.location}
-    </span>
-  </h1>
-  <h1 className="font-bold text-lg">
-    Description:
-    <span className={`pl-4 font-normal ${colorMode === "dark" ? "text-gray-300" : "text-gray-800"}`}>
-      {singleJob?.description}
-    </span>
-  </h1>
-  <h1 className="font-bold text-lg">
-    Experience:
-    <span className={`pl-4 font-normal ${colorMode === "dark" ? "text-gray-300" : "text-gray-800"}`}>
-      {singleJob?.experience}
-    </span>
-  </h1>
-  <h1 className="font-bold text-lg">
-    Salary:
-    <span className={`pl-4 font-normal ${colorMode === "dark" ? "text-gray-300" : "text-gray-800"}`}>
-      {singleJob?.salary} LPA
-    </span>
-  </h1>
-  <h1 className="font-bold text-lg">
-    Total Applicants:
-    <span className={`pl-4 font-normal ${colorMode === "dark" ? "text-gray-300" : "text-gray-800"}`}>
-      {singleJob?.applications?.length}
-    </span>
-  </h1>
-  <h1 className="font-bold text-lg">
-    Posted Date:
-    <span className={`pl-4 font-normal ${colorMode === "dark" ? "text-gray-300" : "text-gray-800"}`}>
-      {singleJob?.createdAt.split("T")[0]}
-    </span>
-  </h1>
-</div>
+            <h1 className="font-bold text-lg">
+              Role:
+              <span className={`pl-4 font-normal ${colorMode === "dark" ? "text-gray-300" : "text-gray-800"}`}>
+                {singleJob?.title}
+              </span>
+            </h1>
+            <h1 className="font-bold text-lg">
+              Location:
+              <span className={`pl-4 font-normal ${colorMode === "dark" ? "text-gray-300" : "text-gray-800"}`}>
+                {singleJob?.location}
+              </span>
+            </h1>
+            <h1 className="font-bold text-lg">
+              Description:
+              <span className={`pl-4 font-normal ${colorMode === "dark" ? "text-gray-300" : "text-gray-800"}`}>
+                {singleJob?.description}
+              </span>
+            </h1>
+            <h1 className="font-bold text-lg">
+              Experience:
+              <span className={`pl-4 font-normal ${colorMode === "dark" ? "text-gray-300" : "text-gray-800"}`}>
+                {singleJob?.experience}
+              </span>
+            </h1>
+            <h1 className="font-bold text-lg">
+              Salary:
+              <span className={`pl-4 font-normal ${colorMode === "dark" ? "text-gray-300" : "text-gray-800"}`}>
+                {singleJob?.salary} LPA
+              </span>
+            </h1>
+            <h1 className="font-bold text-lg">
+              Total Applicants:
+              <span className={`pl-4 font-normal ${colorMode === "dark" ? "text-gray-300" : "text-gray-800"}`}>
+                {singleJob?.applications?.length}
+              </span>
+            </h1>
+            <h1 className="font-bold text-lg">
+              Posted Date:
+              <span className={`pl-4 font-normal ${colorMode === "dark" ? "text-gray-300" : "text-gray-800"}`}>
+                {singleJob?.createdAt.split("T")[0]}
+              </span>
+            </h1>
+          </div>
 
+          <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-6">
+            <Button
+              className={`w-full sm:w-auto ${
+                colorMode === "dark"
+                  ? "bg-[#7209b7] text-white"
+                  : "bg-blue-500 text-white"
+              }`}
+              onClick={handleApplyClick}
+            >
+              Apply for this Job
+            </Button>
 
-<div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-6">
-  <Button
-    className={`w-full sm:w-auto ${
-      colorMode === "dark"
-        ? "bg-[#7209b7] text-white"
-        : "bg-blue-500 text-white"
-    }`}
-    onClick={() => {
-      if (user) {
-        window.open(singleJob?.ApplyLink, "_blank");
-      } else {
-        toast.error("Please log in to apply for this job.");
-      }
-    }}
-  >
-    Apply for this Job
-  </Button>
-
-  <Button
-    onClick={isApplied ? null : applyJobHandler}
-    disabled={isApplied}
-    className={`w-full sm:w-auto rounded-lg ${
-      isApplied ? "bg-gray-600 cursor-not-allowed" : "bg-[#7209b7] hover:bg-[#5f32ad]"
-    }`}
-  >
-    {isApplied ? "Already Applied" : "If Applied, Click Here"}
-  </Button>
-</div>
+            <Button
+              onClick={isApplied ? null : applyJobHandler}
+              disabled={isApplied}
+              className={`w-full sm:w-auto rounded-lg ${
+                isApplied ? "bg-gray-600 cursor-not-allowed" : "bg-[#7209b7] hover:bg-[#5f32ad]"
+              }`}
+            >
+              {isApplied ? "Already Applied" : "If Applied, Click Here"}
+            </Button>
+          </div>
 
         </div>
       </div>
