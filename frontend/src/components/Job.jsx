@@ -23,7 +23,7 @@ const Job = ({ job }) => {
   };
 
   return (
-    <div className={`p-5 rounded-md shadow-xl ${colorMode === 'dark' ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-100 text-black'}`}>
+    <div className={`p-5 rounded-md shadow-xl ${colorMode === 'dark' ? 'bg-gray-800 border-gray-700 text-white' : 'bg-gray-50 border-gray-100 text-black'}`}>
       <div className='flex items-center justify-between'>
         <p className={`text-sm ${colorMode === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
           {daysAgoFunction(job?.createdAt) === 0 ? "Today " : `${daysAgoFunction(job?.createdAt)} days ago`}

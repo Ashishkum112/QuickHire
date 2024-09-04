@@ -26,7 +26,7 @@ const Home = () => {
 
   return (
     <div className={`${colorMode === 'light' 
-      ? 'bg-gradient-to-r from-purple-100 via-gray-100 to-blue-50 text-black' 
+      ? 'bg-gradient-to-r from-purple-50 via-gray-100 to-blue-100 text-black' 
       : 'bg-gradient-to-r from-gray-800 via-gray-900 to-black text-gray-100'}`}>
         <Navbar />
         <HeroSection />

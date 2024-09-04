@@ -18,7 +18,7 @@ const filterData = [
     },
     {
         filterType: "Electronics",
-        array: ["Embedded Systems Engineer", "Hardware Engineer", "VLSI Engineer", "Circuit Design Engineer"]
+        array: ["Electronics Engineer","Embedded Systems Engineer", "Hardware Engineer", "VLSI Engineer", "Circuit Design Engineer"]
     },
     {
         filterType: "Consultancy",

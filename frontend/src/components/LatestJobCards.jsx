@@ -28,10 +28,10 @@ const LatestJobCards = ({ job }) => {
      
     <motion.div
       onClick={() => navigate(`/description/${job._id}`)}
-      className={`p-5 rounded-md shadow-xl ${colorMode === 'dark' ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-100 text-black'}`}
+      className={`p-5 rounded-md shadow-xl ${colorMode === 'dark' ? 'bg-gray-800 border-gray-700 text-white' : 'bg-gray-50 border-gray-100 text-black'}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.0 }}
+      transition={{ duration: 0.3 }}
       whileHover={{ scale: 1.05 }}
     >
       <div className='flex items-center justify-between'>

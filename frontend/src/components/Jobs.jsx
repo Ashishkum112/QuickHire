@@ -29,7 +29,7 @@ const Jobs = () => {
   return (
     <div>
       <Navbar />
-      <div className="max-w-7xl mx-auto mt-5 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-full mx-auto mt-5 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="md:w-1/4">
             <FilterCard />
@@ -56,7 +56,6 @@ const Jobs = () => {
           }
         </div>
       </div>
-      <Footer/>
     </div>
   );
 };
