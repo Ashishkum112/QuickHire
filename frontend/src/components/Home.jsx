@@ -34,7 +34,7 @@ const Home = () => {
         <FAANGCarousel />
         <LatestJobs />
         <FooterBanner/>
-        {!user && <AuthPrompt />} {/* Show AuthPrompt if user is not logged in */}
+        {!user && <AuthPrompt />} Show AuthPrompt if user is not logged in
         <Footer />
     </div>
   );

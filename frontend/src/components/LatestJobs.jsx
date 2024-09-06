@@ -40,7 +40,7 @@ const LatestJobs = () => {
           <Button 
             onClick={handleSeeMore} 
             className="px-6 py-3 bg-purple-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-md transition ease-in-out duration-150">
-            See More
+            Explore Top Jobs
           </Button>
         </div>
       )}

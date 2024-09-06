@@ -133,11 +133,11 @@ const Navbar = () => {
                     Jobs
                   </Link>
                 </li>
-                {/* <li>
+                <li>
                   <Link to="/ai" className="nav-link">
                     Ai-Buddy
                   </Link>
-                </li> */}
+                </li>
                 <li>
                   <Link to="/browse" className="nav-link">
                     Browse
