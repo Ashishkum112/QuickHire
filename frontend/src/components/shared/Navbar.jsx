@@ -98,7 +98,7 @@ const Navbar = () => {
           </div>
           <Link to="/">
             <img
-              src="/logo2.svg"
+              src="/Logo.svg"
               alt="Logo"
               className="h-64 w-auto mt-5 md:h-80 md:mt-6"
             />
@@ -300,7 +300,7 @@ const Navbar = () => {
                     Browse
                   </Link>
                 </li>
-                {/* <li>
+                <li>
                   <Link
                     to="/ai"
                     className="nav-link"
@@ -308,7 +308,7 @@ const Navbar = () => {
                   >
                     AI-Buddy
                   </Link>
-                </li> */}
+                </li>
                 <li>
                   <Link
                     to="/aboutus"

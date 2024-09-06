@@ -78,7 +78,7 @@ const GeminiApi = () => {
       <Navbar />
       <Box p={8}>
         <Heading as="h1" size="xl" mb={6}>
-          AI-Generated Interview Questions
+        Prepare Interview Questions
         </Heading>
         {error && (
           <Alert status="error" mb={4}>
