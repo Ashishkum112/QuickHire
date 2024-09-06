@@ -1,26 +1,30 @@
 .loading-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
   background-color: #fff;
 }
 
-.loading-text {
-  font-size: 5rem;
-  font-weight: 500;
-  color: rgb(126, 23, 126);
-  margin-bottom: 40px;
+.logo-wrapper {
+  position: relative;
+  display: inline-block; /* Ensures the size of the wrapper is based on the logo */
+}
+
+.loading-logo {
+  width: 400px; /* Adjust the size of the logo as per your need */
+  display: block;
 }
 
 .loading-spinner {
   width: 100px; /* Width of the loading bar */
   height: 10px; /* Height of the loading bar */
   background-color: rgba(0, 0, 0, 0.1); /* Light background for the bar */
-  position: relative;
-  overflow: hidden;
-  border-radius: 5px; /* Rounded corners for the bar */
+  position: absolute;
+  border-radius: 5px;
+  bottom: 120px; /* Adjust this to control vertical positioning relative to the logo */
+  left: 50%;
+  transform: translateX(-50%); /* Center the loader horizontally */
 }
 
 .loading-spinner::before {
@@ -28,9 +32,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 40%; /* Initial width of the loading indicator */
+  width: 40%;
   height: 100%;
-  background-color: purple; /* Color of the loading indicator */
+  background-color: #6A38C2;
   animation: loading-bar 1s linear infinite;
 }
 
@@ -45,5 +49,28 @@
   100% {
     left: 100%;
     width: 0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .loading-logo {
+    width: 300px;
+  }
+
+  .loading-spinner {
+    width: 80px;
+    bottom: 15px; /* Adjust for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-logo {
+    width: 400px;
+  }
+
+  .loading-spinner {
+    width: 100px;
+    bottom: 120px; /* Adjust for even smaller screens */
   }
 }

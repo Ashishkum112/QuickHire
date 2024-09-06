@@ -1,13 +1,15 @@
 import React from 'react';
-import './Loading.css'; // You'll create this file for styling
+import './Loading.css'; // Your styling
 
 function Loading() {
   return (
     <div className="loading-container">
-      <div className="loading-text">QuickHire</div>
-      <div className="loading-spinner"></div>
+      <div className="logo-wrapper">
+        <img src="/logo2.svg" alt="Logo" className="loading-logo" />
+        <div className="loading-spinner"></div>
+      </div>
     </div>
   );
 }
 
-export default Loading;
+export default Loading;

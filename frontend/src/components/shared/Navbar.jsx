@@ -135,7 +135,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link to="/ai" className="nav-link">
-                    Ai-Buddy
+                  Interview-Assistant
                   </Link>
                 </li>
                 <li>
@@ -306,7 +306,7 @@ const Navbar = () => {
                     className="nav-link"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    AI-Buddy
+                    Interview-Assistant
                   </Link>
                 </li>
                 <li>

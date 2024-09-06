@@ -15,13 +15,13 @@ export const register = async(req,res) => {
 
 
         const {fullname,email,phoneNumber,password,role} = req.body;
-        if(!fullname || !email || !phoneNumber || !password || !role){
+        const file = req.file;
+        if(!fullname || !email || !phoneNumber || !password || !role || !file ){
             return res.status(400).json({
-                message:"Something is missing",
+                message:"Please provide all required fields including profile photo.",
                 success:false
             })
         };
-        const file = req.file;
         const fileUri = getDataUri(file);
         const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 

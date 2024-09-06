@@ -48,9 +48,7 @@ const CategoryCarousel = () => {
 
   return (
     <div className={`
-    relative w-full mx-auto my-10 overflow-hidden ${colorMode === 'light' 
-      ? 'bg-gradient-to-r from-purple-100 via-gray-100 to-blue-50 text-black' 
-      : 'bg-gradient-to-r from-gray-800 via-gray-900 to-black text-gray-100'}`}>
+    relative w-full mx-auto my-10 overflow-hidden `}>
       <motion.div
         className="flex"
         animate={{ x: [`0%`, `-${categoryWidth * categories.length}%`] }}
