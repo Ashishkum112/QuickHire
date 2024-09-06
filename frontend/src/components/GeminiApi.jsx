@@ -1,17 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Job from './Job';
-import { Button, Spinner, Alert, AlertIcon, Box, Heading, Flex, Text } from '@chakra-ui/react';
+import {
+  Button,
+  Spinner,
+  Alert,
+  AlertIcon,
+  Box,
+  Heading,
+  Flex,
+  Text,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+} from '@chakra-ui/react';
 import Navbar from './shared/Navbar';
 
 const GeminiApi = () => {
   const [jobs, setJobs] = useState([]);
   const [questions, setQuestions] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loadingJobId, setLoadingJobId] = useState(null); // Track loading state per job
   const [error, setError] = useState(null);
+  const { isOpen, onOpen, onClose } = useDisclosure(); // Modal state management
+  const [currentJobId, setCurrentJobId] = useState(null); // Track current job ID for the modal
 
   useEffect(() => {
-    // Fetch jobs from the API
     const fetchJobs = async () => {
       try {
         const response = await axios.get('https://job-portal-7iyl.onrender.com/api/v1/job/get');
@@ -30,25 +48,28 @@ const GeminiApi = () => {
 
   const generateQuestions = async (jobId, jobDescription) => {
     try {
-      setLoading(true);
+      setLoadingJobId(jobId); // Set loading state for the specific job
       setError(null);
-      // Send the job description to Gemini API for generating questions
       const response = await axios.post(
         'https://job-portal-7iyl.onrender.com/api/v1/generative-ai',
         { prompt: jobDescription },
         { headers: { 'Content-Type': 'application/json' } }
       );
 
-      // Assuming the response is a plain text format with questions
       if (response.data) {
-        setQuestions((prev) => ({ ...prev, [jobId]: response.data }));
+        // Clean up any extra characters in the API response
+        const cleanedResponse = response.data.replace(/\*\*/g, '').replace(/##/g, '');
+
+        setQuestions((prev) => ({ ...prev, [jobId]: cleanedResponse }));
+        setCurrentJobId(jobId); // Set the job ID for the modal
+        onOpen(); // Open the modal
       } else {
         setError('Failed to generate questions from the AI service.');
       }
     } catch (err) {
       setError('Failed to generate questions. Please try again.');
     } finally {
-      setLoading(false);
+      setLoadingJobId(null); // Reset loading state
     }
   };
 
@@ -83,18 +104,13 @@ const GeminiApi = () => {
                   <Button
                     onClick={() => generateQuestions(job._id, job.description)}
                     colorScheme="blue"
-                    isLoading={loading}
+                    isLoading={loadingJobId === job._id} // Loading only for the specific job
                     loadingText="Generating..."
                     width="full"
                     mb={2}
                   >
                     Generate Questions
                   </Button>
-                  {questions[job._id] && (
-                    <Box mt={4} bg="gray.100" p={3} borderRadius="md">
-                      <Text whiteSpace="pre-wrap">{questions[job._id]}</Text> {/* Display the raw text response */}
-                    </Box>
-                  )}
                 </Box>
               </Box>
             ))
@@ -103,6 +119,27 @@ const GeminiApi = () => {
           )}
         </Flex>
       </Box>
+
+      {/* Modal to display the AI-generated questions */}
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>AI-Generated Questions</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            {questions[currentJobId] && (
+              <Box>
+                <Text whiteSpace="pre-wrap">{questions[currentJobId]}</Text>
+              </Box>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 };
