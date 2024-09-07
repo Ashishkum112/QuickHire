@@ -26,13 +26,17 @@ const LatestJobs = () => {
       </h1>
       {/* multiple job cards display  */}
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-5'>
-        {
-          jobsToShow.length <= 0 ? (
-            <span>No Job Available</span>
-          ) : (
-            jobsToShow.map((job) => <LatestJobCards key={job._id} job={job} />)
-          )
-        }
+      {
+  jobsToShow.length <= 0 ? (
+    <div className="text-center">
+      <p className="text-lg font-semibold">Sign in to Access Job Opportunities</p>
+      {/* <p className="text-gray-500">Create an account or log in to explore exciting career options tailored just for you.</p> */}
+    </div>
+  ) : (
+    jobsToShow.map((job) => <LatestJobCards key={job._id} job={job} />)
+  )
+}
+
       </div>
       {/* Show "See More" button */}
       {jobsToShow.length > 0 && (

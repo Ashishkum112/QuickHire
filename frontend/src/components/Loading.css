@@ -6,25 +6,29 @@
   background-color: #fff;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .logo-wrapper {
   position: relative;
-  display: inline-block; /* Ensures the size of the wrapper is based on the logo */
+  display: inline-block;
 }
 
 .loading-logo {
-  width: 400px; /* Adjust the size of the logo as per your need */
+  width: 400px;
   display: block;
 }
 
 .loading-spinner {
-  width: 100px; /* Width of the loading bar */
-  height: 10px; /* Height of the loading bar */
-  background-color: rgba(0, 0, 0, 0.1); /* Light background for the bar */
+  width: 100px;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
   position: absolute;
   border-radius: 5px;
-  bottom: 120px; /* Adjust this to control vertical positioning relative to the logo */
+  bottom: 120px;
   left: 50%;
-  transform: translateX(-50%); /* Center the loader horizontally */
+  transform: translateX(-50%);
 }
 
 .loading-spinner::before {
@@ -60,7 +64,7 @@
 
   .loading-spinner {
     width: 80px;
-    bottom: 15px; /* Adjust for smaller screens */
+    bottom: 15px;
   }
 }
 
@@ -71,6 +75,6 @@
 
   .loading-spinner {
     width: 100px;
-    bottom: 120px; /* Adjust for even smaller screens */
+    bottom: 120px;
   }
 }
