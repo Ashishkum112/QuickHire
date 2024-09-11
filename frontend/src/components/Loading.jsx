@@ -10,7 +10,7 @@ function Loading() {
   return (
     <div className="loading-container hidden">
       <div className="logo-wrapper">
-        <img src="/logo2.svg" alt="Logoo" className="loading-logo" />
+        <img src="/Logo.svg" alt="Logoo" className="loading-logo" />
         <div className="loading-spinner"></div>
       </div>
     </div>
