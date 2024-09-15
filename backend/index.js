@@ -7,9 +7,16 @@ import userRoute from "./routes/user.route.js";
 import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
-import aiRoute from './routes/ai.route.js'
+import aiRoute from './routes/ai.route.js';
 import path from "path";
 import axios from "axios";  // Import axios for self-pinging
+import GoogleStrategy from 'passport-google-oauth20';  // Use the Google OAuth strategy
+import session from "express-session";
+import passport from "passport";
+import {User} from './models/user.model.js';  // Import using ES modules
+
+const clientid = "539344939306-311muft487drkqe8c7n07lptg1stbdp8.apps.googleusercontent.com";
+const clientsecret = "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";
 
 dotenv.config();
 const app = express();
@@ -28,12 +35,67 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// setup session
+app.use(session({
+    secret: "secretcode",
+    resave: false,
+    saveUninitialized: true
+}));
+
+// setup passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Configure Google OAuth 2.0 strategy
+passport.use(new GoogleStrategy({
+    clientID: clientid,
+    clientSecret: clientsecret,
+    callbackURL: "http://localhost:8000/api/v1/user/google/callback"
+},
+async (accessToken, refreshToken, profile, done) => {
+    console.log("profile", profile);
+    try {
+        let user = await User.findOne({ email: profile.emails[0].value });
+        if (!user) {
+            user = new User({
+                fullname: profile.displayName,
+                email: profile.emails[0].value,
+                profilePicture: profile.photos[0].value
+            });
+            await user.save();
+        }
+        return done(null, user);
+    } catch (error) {
+        return done(error, null);
+    }
+}));
+
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+    User.findById(id, (err, user) => {
+        done(err, user);
+    });
+});
+
+app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+    if (req.isAuthenticated()) {
+        res.redirect('/');
+    } else {
+        res.redirect('/login');
+    }
+});
+
 // API routes
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
 app.use('/api/v1/application', applicationRoute);
-app.use('/api/v1/generative-ai', aiRoute)
+app.use('/api/v1/generative-ai', aiRoute);
 
 // Serve static files
 app.use(express.static(path.join(__dirname, "frontend", "dist")));
@@ -43,7 +105,7 @@ app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
 });
 
-const PORT = process.env.PORT ||  3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     connectDB();

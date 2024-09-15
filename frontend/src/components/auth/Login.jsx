@@ -16,6 +16,9 @@ import { useColorMode } from '@chakra-ui/react';
 
 
 const Login = () => {
+  const loginWithGoogle = () => {
+    window.open("http://localhost:8000/auth/google/callback","_self");
+  };
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -34,7 +37,7 @@ const Login = () => {
     e.preventDefault();
     try {
       dispatch(setLoading(true));
-      const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
+      const res = await axios.post(`${USER_API_END_POINT}`/login, input, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -130,8 +133,11 @@ const Login = () => {
               Login
             </Button>
           )}
+          <Button onClick={loginWithGoogle} className="login-with-google-btn w-full my-4">
+            Sign in with Google
+          </Button>
           <span className="text-sm block text-center">
-            Don't have an account?{"  "}
+          Don&apos;t have an account?{"  "}
 
             <Link to="/signup" className="text-blue-600 font-bold">
               Sign up
