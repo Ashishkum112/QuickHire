@@ -14,6 +14,7 @@ import GoogleStrategy from 'passport-google-oauth20';  // Use the Google OAuth s
 import session from "express-session";
 import passport from "passport";
 import {User} from './models/user.model.js';  // Import using ES modules
+import MongoStore from 'connect-mongo';
 
 // const clientid = process.env.GOOGLE_CLIENT_ID;
 // const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
@@ -38,11 +39,17 @@ app.use(cookieParser());
 
 // setup session
 app.use(session({
-    secret: "secretcode",
+    secret: process.env.SECRET_KEY,  // Ensure you're using an environment variable for the secret
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,  // Use your existing MongoDB connection
+        collectionName: 'sessions'
+    }),
+    cookie: {
+        secure: process.env.NODE_ENV === "production",  // Secure cookies in production
+    }
 }));
-
 // setup passport
 app.use(passport.initialize());
 app.use(passport.session());
