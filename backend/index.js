@@ -15,8 +15,9 @@ import session from "express-session";
 import passport from "passport";
 import {User} from './models/user.model.js';  // Import using ES modules
 
-const clientid = "539344939306-311muft487drkqe8c7n07lptg1stbdp8.apps.googleusercontent.com";
-const clientsecret = "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";
+const clientid = process.env.GOOGLE_CLIENT_ID;
+const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
+ 
 
 dotenv.config();
 const app = express();
