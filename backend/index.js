@@ -16,6 +16,8 @@ import passport from "passport";
 import {User} from './models/user.model.js';  // Import using ES modules
 import MongoStore from 'connect-mongo';
 
+const PORT = process.env.PORT || 3000;
+
 // const clientid = process.env.GOOGLE_CLIENT_ID;
 // const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
  
@@ -113,7 +115,7 @@ app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
 });
 
-const PORT = process.env.PORT || 3000;
+
 
 app.listen(PORT, () => {
     connectDB();
