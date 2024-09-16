@@ -15,8 +15,8 @@ import session from "express-session";
 import passport from "passport";
 import {User} from './models/user.model.js';  // Import using ES modules
 
-const clientid = process.env.GOOGLE_CLIENT_ID;
-const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
+// const clientid = process.env.GOOGLE_CLIENT_ID;
+// const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
  
 
 dotenv.config();
@@ -49,8 +49,8 @@ app.use(passport.session());
 
 // Configure Google OAuth 2.0 strategy
 passport.use(new GoogleStrategy({
-    clientID: clientid,
-    clientSecret: clientsecret,
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:8000/api/v1/user/google/callback"
 },
 async (accessToken, refreshToken, profile, done) => {
