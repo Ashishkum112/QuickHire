@@ -16,11 +16,10 @@ import passport from "passport";
 import {User} from './models/user.model.js';  // Import using ES modules
 import MongoStore from 'connect-mongo';
 
-const PORT = process.env.PORT || 3000;
 
 // const clientid = process.env.GOOGLE_CLIENT_ID;
 // const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
- 
+
 
 dotenv.config();
 const app = express();
@@ -116,6 +115,8 @@ app.get("*", (req, res) => {
 });
 
 
+
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     connectDB();
