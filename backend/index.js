@@ -17,9 +17,6 @@ import {User} from './models/user.model.js';  // Import using ES modules
 import MongoStore from 'connect-mongo';
 
 
-// const clientid = process.env.GOOGLE_CLIENT_ID;
-// const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
-
 
 dotenv.config();
 const app = express();
@@ -51,53 +48,9 @@ app.use(session({
         secure: process.env.NODE_ENV === "production",  // Secure cookies in production
     }
 }));
-// setup passport
-app.use(passport.initialize());
-app.use(passport.session());
 
-// Configure Google OAuth 2.0 strategy
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: `${process.env.URL}/api/v1/user/google/callback`
-},
-async (accessToken, refreshToken, profile, done) => {
-    console.log("profile", profile);
-    try {
-        let user = await User.findOne({ email: profile.emails[0].value });
-        if (!user) {
-            user = new User({
-                fullname: profile.displayName,
-                email: profile.emails[0].value,
-                profilePicture: profile.photos[0].value
-            });
-            await user.save();
-        }
-        return done(null, user);
-    } catch (error) {
-        return done(error, null);
-    }
-}));
 
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-});
 
-passport.deserializeUser((id, done) => {
-    User.findById(id, (err, user) => {
-        done(err, user);
-    });
-});
-
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-    if (req.isAuthenticated()) {
-        res.redirect('/');
-    } else {
-        res.redirect('/login');
-    }
-});
 
 // API routes
 app.use("/api/v1/user", userRoute);
@@ -113,8 +66,6 @@ app.use(express.static(path.join(__dirname, "frontend", "dist")));
 app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
 });
-
-
 
 const PORT = process.env.PORT || 3000;
 
