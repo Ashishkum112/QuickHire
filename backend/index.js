@@ -10,10 +10,7 @@ import applicationRoute from "./routes/application.route.js";
 import aiRoute from './routes/ai.route.js';
 import path from "path";
 import axios from "axios";  // Import axios for self-pinging
-import GoogleStrategy from 'passport-google-oauth20';  // Use the Google OAuth strategy
 import session from "express-session";
-import passport from "passport";
-import {User} from './models/user.model.js';  // Import using ES modules
 import MongoStore from 'connect-mongo';
 
 
@@ -83,4 +80,4 @@ setInterval(() => {
         .catch(error => {
             console.error('Keep-alive ping failed:', error.message);
         });
-}, 5 * 60 * 1000);  // Ping every 5 minutes
+}, 10 * 60 * 1000);  // Ping every 5 minutes
