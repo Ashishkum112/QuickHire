@@ -3,7 +3,8 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useColorMode } from '@chakra-ui/react'; // Assuming you're using Chakra UI for color mode
 import Footer from './shared/Footer';
-
+import satyam from '../assets/satyam.jpeg';
+import ashish from '../assets/ashish.jpeg'
 const AboutUs = () => {
   const { colorMode } = useColorMode(); // Get the current color mode
   
@@ -34,14 +35,14 @@ const AboutUs = () => {
   const developers = [
     {
       name: 'Ashish Kumar',
-      photo: 'https://media.licdn.com/dms/image/v2/D4D03AQFa6PIz6xI9Wg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1714852892017?e=1729728000&v=beta&t=m6_weLA7FyDyEopyny2oC4as1O3cD5NcRYmFk0Mw3pw',
+      photo: ashish,
       linkedin: 'https://www.linkedin.com/in/ashish-web-dev/',
       contact: 'ashishkumarr0214@gmail.com',
       bio: "MERN Stack Developer",
     },
     {
       name: 'Satyam Mohanty',
-      photo: 'https://media.licdn.com/dms/image/v2/D4D03AQGY8QpyoxU_4w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1684141655554?e=1729728000&v=beta&t=y-hHWPo8LkzDQ4fGCyujgrUbYBiL4-YT6__UIeU39Fg',
+      photo: satyam,
       linkedin: 'https://www.linkedin.com/in/satyam-mohanty-43882918a/',
       contact: 'satyammohanty@myyahoo.com',
       bio: "MERN Stack Developer",

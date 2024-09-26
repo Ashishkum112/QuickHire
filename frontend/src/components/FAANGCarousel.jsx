@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useColorMode } from '@chakra-ui/react';
 import google from '@/assets/google.png';
-import amazon from "@/assets/amazon.jpg"
+import amazon from "@/assets/amazon-min.jpg"
 import IBM from "@/assets/IBM.png"
 import netflix from '@/assets/netflix.png';
-import amazon3 from '@/assets/amazon3.webp';
 import microsoft from '@/assets/microsoft.webp';
 
 
