@@ -39,7 +39,7 @@ const GeminiApi = () => {
           setError('Invalid data format received from the server.');
         }
       } catch (err) {
-        setError('Failed to fetch jobs. Please try again.');
+        setError('Please Log in and try again.');
       }
     };
 
