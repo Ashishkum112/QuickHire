@@ -62,9 +62,7 @@ const Login = () => {
       ? 'bg-gradient-to-r from-purple-100 via-gray-100 to-blue-100 text-black' 
       : 'bg-gradient-to-r from-gray-800 via-gray-900 to-black text-gray-100'}`}>
       <Navbar />
-      <div className={`${colorMode === 'light' 
-      ? 'bg-gradient-to-r from-purple-100 via-gray-100 to-blue-100 text-black' 
-      : 'bg-gradient-to-r from-gray-800 via-gray-900 to-black text-gray-100'} flex items-center justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`}>
+      <div className={` flex items-center justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`}>
         <form
           onSubmit={submitHandler}
           className="w-full max-w-md border dark:border-gray-100 rounded-md p-4 my-10 shadow-xl"
@@ -124,13 +122,13 @@ const Login = () => {
               <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait
             </Button>
           ) : (
-            <Button type="submit" className="w-full my-4 bg-[#6A38C2]">
+            <Button type="submit" className="w-full my-4 bg-[#6A38C2] hover:bg-blue-500">
               Login
             </Button>
           )}
           <span className="text-sm block text-center">
             Don't have an account?{"  "}
-            <Link to="/signup" className="text-blue-600 font-bold">
+            <Link to="/signup" className="text-blue-600 font-bold hover:text-blue-500">
               Sign up
             </Link>
           </span>
