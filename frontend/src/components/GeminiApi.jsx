@@ -32,7 +32,7 @@ const GeminiApi = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get('https://job-portal-7iyl.onrender.com/api/v1/job/get');
+        const response = await axios.get('https://www.quickhirepro.in/api/v1/job/get'); // Updated API endpoint
         if (response.data.success && Array.isArray(response.data.jobs)) {
           setJobs(response.data.jobs);
         } else {
@@ -51,7 +51,7 @@ const GeminiApi = () => {
       setLoadingJobId(jobId); // Set loading state for the specific job
       setError(null);
       const response = await axios.post(
-        'https://job-portal-7iyl.onrender.com/api/v1/generative-ai',
+        'https://www.quickhirepro.in/api/v1/generative-ai', // Updated API endpoint
         { prompt: jobDescription },
         { headers: { 'Content-Type': 'application/json' } }
       );

@@ -80,4 +80,4 @@ setInterval(() => {
         .catch(error => {
             console.error('Keep-alive ping failed:', error.message);
         });
-}, 10 * 60 * 1000);  // Ping every 5 minutes
+}, 10 * 60 * 1000);  // Ping every 10 minutes
