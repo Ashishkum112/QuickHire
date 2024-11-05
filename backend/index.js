@@ -57,7 +57,7 @@ app.use('/api/v1/application', applicationRoute);
 app.use('/api/v1/generative-ai', aiRoute);
 
 // Serve static files
-app.use(express.static(path.join(__dirname, "/frontend/dist")));
+app.use(express.static(path.join(__dirname, "frontend","dist")));
 
 // Handle all other routes (wildcard) to serve the frontend app
 app.get("*", (req, res) => {
