@@ -33,6 +33,6 @@
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-oauth2": "^1.8.0",
-    "@vitejs/plugin-react": "^5.1.0"
+    "@vitejs/plugin-react": "^4.0.0"
   }
 }
