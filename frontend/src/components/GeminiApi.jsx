@@ -20,8 +20,22 @@ import {
   ModalFooter,
 } from '@chakra-ui/react';
 import Navbar from './shared/Navbar';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const GeminiApi = () => {
+
+  const navigate = useNavigate(); // Router hook for navigation
+  const { user } = useSelector((store) => store.auth); // Get the current user from Redux store
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login'); // Redirect to login if user is not logged in
+    }
+  }, [user, navigate]);
+
+
+
   const [jobs, setJobs] = useState([]);
   const [questions, setQuestions] = useState({});
   const [loadingJobId, setLoadingJobId] = useState(null); // Track loading state per job
@@ -33,14 +47,12 @@ const GeminiApi = () => {
     const fetchJobs = async () => {
       try {
         const response = await axios.get('https://www.quickhirepro.in/api/v1/job/get'); // Updated API endpoint
-        console.log('Jobs fetched:', response.data); // Debugging
         if (response.data.success && Array.isArray(response.data.jobs)) {
           setJobs(response.data.jobs);
         } else {
           setError('Invalid data format received from the server.');
         }
       } catch (err) {
-        console.error('Error fetching jobs:', err); // Debugging
         setError('Please Log in and try again.');
       }
     };
@@ -58,11 +70,9 @@ const GeminiApi = () => {
         { headers: { 'Content-Type': 'application/json' } }
       );
 
-      console.log('Generated questions response:', response.data); // Debugging
-
       if (response.data) {
         // Clean up any extra characters in the API response
-        const cleanedResponse = response.data.replace(/\*\*/g, '').replace(/##/g, '');
+        const cleanedResponse = response.data.replace(/\\/g, '').replace(/##/g, '');
 
         setQuestions((prev) => ({ ...prev, [jobId]: cleanedResponse }));
         setCurrentJobId(jobId); // Set the job ID for the modal
@@ -71,7 +81,6 @@ const GeminiApi = () => {
         setError('Failed to generate questions from the AI service.');
       }
     } catch (err) {
-      console.error('Error generating questions:', err); // Debugging
       setError('Failed to generate questions. Please try again.');
     } finally {
       setLoadingJobId(null); // Reset loading state
@@ -83,7 +92,7 @@ const GeminiApi = () => {
       <Navbar />
       <Box p={8}>
         <Heading as="h1" size="xl" mb={6}>
-          Prepare Interview Questions
+        Prepare Interview Questions
         </Heading>
         {error && (
           <Alert status="error" mb={4}>
@@ -132,12 +141,10 @@ const GeminiApi = () => {
           <ModalHeader>AI-Generated Questions</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {questions[currentJobId] ? (
+            {questions[currentJobId] && (
               <Box>
                 <Text whiteSpace="pre-wrap">{questions[currentJobId]}</Text>
               </Box>
-            ) : (
-              <Text>No questions available for this job.</Text>
             )}
           </ModalBody>
           <ModalFooter>
