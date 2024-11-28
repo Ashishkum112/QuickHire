@@ -32,6 +32,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use(cors({ origin: 'https://quickhirepro.in' }));
+
 // setup session
 app.use(session({
     secret: process.env.SECRET_KEY,  // Ensure you're using an environment variable for the secret
