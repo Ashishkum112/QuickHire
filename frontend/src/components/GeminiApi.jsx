@@ -32,7 +32,7 @@ const GeminiApi = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get('https://www.quickhirepro.in/ai'); // Updated API endpoint
+        const response = await axios.get('https://www.quickhirepro.in/api/v1/job/get'); // Updated API endpoint
         if (response.data.success && Array.isArray(response.data.jobs)) {
           setJobs(response.data.jobs);
         } else {
