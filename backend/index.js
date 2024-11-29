@@ -74,12 +74,12 @@ app.listen(PORT, () => {
 });
 
 // Keep-alive pinging
-setInterval(() => {
-    axios.get(`https://quickhirepro.in`)
-        .then(response => {
-            console.log('Keep-alive ping successful');
-        })
-        .catch(error => {
-            console.error('Keep-alive ping failed:', error.message);
-        });
-}, 10 * 60 * 1000);  // Ping every 10 minutes
+// setInterval(() => {
+//     axios.get(`https://quickhirepro.in`)
+//         .then(response => {
+//             console.log('Keep-alive ping successful');
+//         })
+//         .catch(error => {
+//             console.error('Keep-alive ping failed:', error.message);
+//         });
+// }, 10 * 60 * 1000);  // Ping every 10 minutes
