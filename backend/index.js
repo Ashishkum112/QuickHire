@@ -13,8 +13,6 @@ import axios from "axios";  // Import axios for self-pinging
 import session from "express-session";
 import MongoStore from 'connect-mongo';
 
-
-
 dotenv.config();
 const app = express();
 
@@ -23,7 +21,7 @@ console.log(__dirname);
 
 // CORS configuration
 const corsOptions = {
-    origin: process.env.URL,
+    origin: 'https://quickhirepro.in',  // Your frontend domain
     credentials: true
 };
 app.use(cors(corsOptions));
@@ -32,9 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(cors({ origin: 'https://quickhirepro.in' }));
-
-// setup session
+// Setup session
 app.use(session({
     secret: process.env.SECRET_KEY,  // Ensure you're using an environment variable for the secret
     resave: false,
@@ -48,9 +44,6 @@ app.use(session({
     }
 }));
 
-
-
-
 // API routes
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/company", companyRoute);
@@ -59,7 +52,7 @@ app.use('/api/v1/application', applicationRoute);
 app.use('/api/v1/generative-ai', aiRoute);
 
 // Serve static files
-app.use(express.static(path.join(__dirname, "frontend","dist")));
+app.use(express.static(path.join(__dirname, "frontend", "dist")));
 
 // Handle all other routes (wildcard) to serve the frontend app
 app.get("*", (req, res) => {
@@ -73,7 +66,7 @@ app.listen(PORT, () => {
     console.log(`Server running at port ${PORT}`);
 });
 
-// Keep-alive pinging
+// Keep-alive pinging (if necessary)
 // setInterval(() => {
 //     axios.get(`https://quickhirepro.in`)
 //         .then(response => {
